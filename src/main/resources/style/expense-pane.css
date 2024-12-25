@@ -1,0 +1,5 @@
+.add-button {
+    -fx-background-color: #FF8225;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}

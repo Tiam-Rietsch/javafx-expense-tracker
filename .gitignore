@@ -1,0 +1,55 @@
+# concption files
+/conception/
+
+# Maven target directory
+/target/
+
+# Maven-specific files
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse specific files
+/.classpath
+/.project
+/.settings/
+
+# IntelliJ IDEA specific files
+/.idea/
+/*.iml
+
+# NetBeans specific files
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code specific files
+.vscode/
+
+# Java temporary files
+*.class
+*.log
+hs_err_pid*
+
+# OS specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# JavaFX runtime caches (optional, if your IDE or build system generates them)
+javafx-sdk/
+lib/javafx-sdk/
+
+# Logs
+*.log
+
+# Dependency management
+dependency-reduced-pom.xml
+
+# Package files
+*.jar
+*.war
+*.ear
+*.jmod

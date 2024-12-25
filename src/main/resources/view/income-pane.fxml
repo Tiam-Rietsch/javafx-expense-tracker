@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<fx:root type="StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../style/expense-pane.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane fx:id="empty_income_pane" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Label layoutX="225.0" layoutY="179.0" text="No Income stream inserted yet" textFill="#ff8225">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="215.0" layoutY="206.0" prefHeight="27.0" prefWidth="369.0" text="Add an income stream and begin monitoring your income" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button layoutX="312.0" layoutY="244.0" mnemonicParsing="false" onAction="#addIncomeStream" prefHeight="40.0" prefWidth="176.0" styleClass="add-button" text="New income stream" />
+            <FontAwesomeIconView fill="WHITE" glyphName="PLUS" layoutX="326.0" layoutY="271.0" size="18" text="" />
+         </children>
+      </AnchorPane>
+   </children>
+</fx:root>
