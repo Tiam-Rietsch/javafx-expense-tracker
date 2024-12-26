@@ -2,7 +2,7 @@ package com.tiam.controller;
 
 import java.io.IOException;
 
-import com.tiam.persistence.Color;
+import com.tiam.service.Color;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

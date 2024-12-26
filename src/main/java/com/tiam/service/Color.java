@@ -1,4 +1,4 @@
-package com.tiam.persistence;
+package com.tiam.service;
 
 public class Color {
     private String name;

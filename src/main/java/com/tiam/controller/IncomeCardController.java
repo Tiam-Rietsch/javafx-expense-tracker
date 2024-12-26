@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.tiam.persistence.Color;
+import com.tiam.service.Color;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,9 +51,5 @@ public class IncomeCardController extends AnchorPane {
 
     }
 
-    @FXML
-    public void showDetails(MouseEvent event) {
-
-    }
 
 }

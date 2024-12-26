@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.tiam.persistence.Color;
+import com.tiam.service.Color;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -102,8 +102,20 @@ public class ExpensePaneController extends StackPane implements Initializable{
     }
 
     @FXML
-    public void createBudjet(ActionEvent event) {
+    public void createBudjet(ActionEvent event) throws IOException {
+        Stage form = new Stage();
+        Parent formRoot = FXMLLoader.load(getClass().getResource("/view/budjet-form.fxml"));
+        Scene scene = new Scene(formRoot);
 
+        form.setTitle("New expense category");
+        form.initStyle(StageStyle.UTILITY);
+        form.resizableProperty().set(false);
+        form.setAlwaysOnTop(true);
+        form.setScene(scene);
+
+        empty_expense_pane.getParent().getParent().getParent().setDisable(true);
+        form.showAndWait();    
+        empty_expense_pane.getParent().getParent().getParent().setDisable(false);
     }
 
     public void handleExpenseCardClick(MouseEvent mouseEvent) {
