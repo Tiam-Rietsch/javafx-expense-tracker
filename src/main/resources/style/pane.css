@@ -1,0 +1,164 @@
+.add-button {
+    -fx-background-color: #FF8225;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.income-card {
+    -fx-background-color: white;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.income-card:hover {
+    -fx-background-color: #0000000c;
+}
+
+.income-card.selected {
+    -fx-background-color: #0000000f;
+    -fx-text-fill: white;
+}
+
+.left-container {
+    -fx-background-color: #f8eded;
+}
+
+.right-container {
+    -fx-background-color: white;
+}
+
+.primary-btn {
+    -fx-background-color: #FF8225;
+    -fx-text-fill: white;
+}
+
+.danger-btn {
+    -fx-background-color: #B43F3F;
+    -fx-text-fill: white;
+}
+
+.income-table .column-header-background {
+    -fx-background-color: #FF8225;
+    -fx-background-radius: 5px;
+}
+
+.income-table {
+    -fx-background-radius: 5px 5px 0 0;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.income-table .column-header {
+    -fx-background-color: #FF8225;
+    -fx-text-fill: white;
+    -fx-pref-height: 35px;
+    -fx-background-radius: 5px 5px 0 0;
+    -fx-border-radius: 5px;
+}
+
+.income-table .column-header .label {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-alignment: left;
+    -fx-padding: 0 0 0 5px;
+}
+
+.income-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-pref-height: 30px;
+}
+
+.income-table .table-row-cell:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+
+.income-table .table-cell {
+    -fx-padding: 0 0 0 5px;
+    -fx-text-fill: black;
+    -fx-border-color: transparent;
+}
+
+.income-table .table-cell:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+
+.amt-column {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.amt-column .table-cell {
+    -fx-text-fill: blue;
+}
+
+.circle-add-btn {
+    -fx-background-color: #FF8225;
+    -fx-background-radius: 100%;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, white, 2, 0.5, 0, 1);
+}
+
+.circle-add-btn:hover {
+    -fx-background-color: #FF8225;
+    -fx-background-radius: 100%;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, white, 2, 0.5, 0, 1);
+}
+
+.income-container {
+    -fx-background-radius: 5px 5px 0 0;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent; /* Transparent track background */
+    -fx-padding: 0;
+    -fx-pref-width: 10px;
+}
+
+/* Horizontal Scroll Bar */
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #FF8225;
+    -fx-background-radius: 5px; /* Rounded scrollbar thumb */
+    -fx-padding: 2px;
+}
+
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #E6731A; /* Slightly darker shade on hover */
+}
+
+.scroll-bar:horizontal .track {
+    -fx-background-color: #FFD5B2; /* Light background for the track */
+}
+
+/* Vertical Scroll Bar */
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #FF8225;
+    -fx-background-radius: 5px; /* Rounded scrollbar thumb */
+    -fx-padding: 2px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #E6731A; /* Slightly darker shade on hover */
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: #FFD5B2; /* Light background for the track */
+}

@@ -3,13 +3,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-
-<fx:root type="StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="StackPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="empty_report_pane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../style/pane.css">
          <children>
-            <Label layoutX="364.0" layoutY="291.0" text="No report yet" />
+            <AnchorPane fx:id="msg_container" layoutX="41.0" layoutY="68.0" prefHeight="130.0" prefWidth="470.0">
+               <children>
+                  <Label layoutX="153.0" layoutY="14.0" text="No reports yet" textFill="#ff8225">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="28.0" layoutY="40.0" prefHeight="50.0" prefWidth="414.0" text="The application needs to track your expenditures and income first, go ahead and add some" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>

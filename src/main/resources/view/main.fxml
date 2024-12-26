@@ -13,7 +13,7 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="1000.0">
          <left>
-            <AnchorPane prefHeight="700.0" prefWidth="200.0" styleClass="sidebar" stylesheets="@../style/sidebar.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="700.0" prefWidth="250.0" styleClass="sidebar" stylesheets="@../style/sidebar.css" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="25.0" layoutY="35.0" text="Net worth" textFill="#f8eded" AnchorPane.leftAnchor="26.0">
                      <font>
@@ -35,17 +35,17 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="report_btn" alignment="BASELINE_LEFT" layoutX="24.0" layoutY="169.0" mnemonicParsing="false" onAction="#switchTab" prefHeight="37.0" prefWidth="102.0" text="Report" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="185.0">
+                  <Button fx:id="report_btn" alignment="BASELINE_LEFT" layoutX="24.0" layoutY="180.0" mnemonicParsing="false" onAction="#switchTab" prefHeight="37.0" prefWidth="102.0" text="Report" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="190.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Line endX="48.09288787841797" endY="7.62939453125E-6" layoutX="126.0" layoutY="86.0" startX="-100.0" stroke="#ffffff40" AnchorPane.leftAnchor="25.292892456054688" />
+                  <Line endX="96.89290618896484" endY="7.62939453125E-6" layoutX="126.0" layoutY="86.0" startX="-100.0" stroke="#ffffff40" AnchorPane.leftAnchor="25.292892456054688" />
                </children>
             </AnchorPane>
          </left>
          <center>
-            <StackPane fx:id="main_container" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <AnchorPane fx:id="main_container" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </children>

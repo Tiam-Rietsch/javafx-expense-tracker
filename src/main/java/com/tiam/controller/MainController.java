@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 public class MainController implements Initializable {
@@ -19,7 +20,7 @@ public class MainController implements Initializable {
     private Button income_btn;
 
     @FXML
-    private StackPane main_container;
+    private AnchorPane main_container;
 
     @FXML
     private Label networth_label;
@@ -27,32 +28,43 @@ public class MainController implements Initializable {
     @FXML
     private Button report_btn;
 
+    private void applyPane(StackPane pane) {
+        AnchorPane.setTopAnchor(pane, 0.0);
+        AnchorPane.setLeftAnchor(pane, 0.0);
+        AnchorPane.setRightAnchor(pane, 0.0);
+        AnchorPane.setBottomAnchor(pane, 0.0);
+        main_container.getChildren().add(pane);
+    }
+
     @FXML
     public void switchTab(ActionEvent event) {
         main_container.getChildren().clear();
         expense_btn.getStyleClass().remove("selected");
         income_btn.getStyleClass().remove("selected");
         report_btn.getStyleClass().remove("selected");
+        StackPane pane = null; 
 
         if (event.getTarget().equals(expense_btn)) {
             expense_btn.getStyleClass().add("selected");
-            ExpensePaneController pane = new ExpensePaneController();
-            main_container.getChildren().add(pane);
+            pane = new ExpensePaneController();
         } else if (event.getTarget().equals(income_btn)) {
             income_btn.getStyleClass().add("selected");
-            IncomePaneController pane = new IncomePaneController();
-            main_container.getChildren().add(pane);
+            pane = new IncomePaneController();
         } else if (event.getTarget().equals(report_btn)) {
             report_btn.getStyleClass().add("selected");
-            ReportPaneController pane = new ReportPaneController();
-            main_container.getChildren().add(pane);
+            pane = new ReportPaneController();
         }
+
+        applyPane(pane);
+
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         IncomePaneController pane = new IncomePaneController();
-        main_container.getChildren().add(pane);
+        applyPane(pane);
     }
+
 
 }
