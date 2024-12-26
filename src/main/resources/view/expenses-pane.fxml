@@ -28,7 +28,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button layoutX="147.0" layoutY="69.0" mnemonicParsing="false" onAction="#createExpenseCategory" prefHeight="40.0" prefWidth="176.0" styleClass="add-button" text="Add Category" />
+                  <Button layoutX="147.0" layoutY="69.0" mnemonicParsing="false" onAction="#addExpenseCategory" prefHeight="40.0" prefWidth="176.0" styleClass="add-button" text="Add Category" />
                   <FontAwesomeIconView fill="WHITE" glyphName="PLUS" layoutX="175.0" layoutY="95.0" size="18" text="" />
                </children>
             </AnchorPane>

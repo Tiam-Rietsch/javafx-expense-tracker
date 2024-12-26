@@ -48,6 +48,7 @@ public class IncomePaneController extends StackPane implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
@@ -100,7 +101,6 @@ public class IncomePaneController extends StackPane implements Initializable {
         for (Node card : income_stream_container.getChildren()) {
             card.getStyleClass().remove("selected");
             if (mouseEvent.getTarget().equals(card)) {
-                System.out.println("hey");
                 card.getStyleClass().add("selected");
             } 
         }

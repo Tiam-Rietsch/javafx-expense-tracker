@@ -4,14 +4,22 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.tiam.persistence.Color;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ExpensePaneController extends StackPane implements Initializable{
 
@@ -52,18 +60,45 @@ public class ExpensePaneController extends StackPane implements Initializable{
         empty_expense_pane.widthProperty().addListener((obs, oldVal, newVal) -> {
             msg_container.layoutXProperty().set((newVal.doubleValue() - msg_container_width) / 2);
         });
+
+        testCard();
     }
 
     /** ---------------------- Event handlers  */
 
     @FXML
-    public void addExpenseCategory(ActionEvent event) {
+    public void addExpenseCategory(ActionEvent event) throws IOException {
+        Stage form = new Stage();
+        Parent formRoot = FXMLLoader.load(getClass().getResource("/view/add-expense-category-form.fxml"));
+        Scene scene = new Scene(formRoot);
 
+        form.setTitle("New expense category");
+        form.initStyle(StageStyle.UTILITY);
+        form.resizableProperty().set(false);
+        form.setAlwaysOnTop(true);
+        form.setScene(scene);
+
+        empty_expense_pane.getParent().getParent().getParent().setDisable(true);
+        form.showAndWait();    
+        empty_expense_pane.getParent().getParent().getParent().setDisable(false);
+        
     }
 
     @FXML 
-    public void addExpense(ActionEvent event) {
+    public void addExpense(ActionEvent event) throws IOException{
+        Stage form = new Stage();
+        Parent formRoot = FXMLLoader.load(getClass().getResource("/view/add-expense-form.fxml"));
+        Scene scene = new Scene(formRoot);
 
+        form.setTitle("New expense category");
+        form.initStyle(StageStyle.UTILITY);
+        form.resizableProperty().set(false);
+        form.setAlwaysOnTop(true);
+        form.setScene(scene);
+
+        empty_expense_pane.getParent().getParent().getParent().setDisable(true);
+        form.showAndWait();    
+        empty_expense_pane.getParent().getParent().getParent().setDisable(false);
     }
 
     @FXML
@@ -71,6 +106,24 @@ public class ExpensePaneController extends StackPane implements Initializable{
 
     }
 
+    public void handleExpenseCardClick(MouseEvent mouseEvent) {
+        for (Node card : expense_category_container.getChildren()) {
+            card.getStyleClass().remove("selected");
+
+            if (card.equals(mouseEvent.getTarget())) {
+                card.getStyleClass().add("selected");
+            }
+        }
+    }
     /** ---------------------- Utilities */
+
+    public void testCard() {
+        for (Color color : Color.colors) {
+            ExpenseCardController card = new ExpenseCardController("Savings", color);
+            card.onMouseClickedProperty().set(event -> handleExpenseCardClick(event));
+            card.prefWidthProperty().bind(expense_category_container.prefWidthProperty());
+            expense_category_container.getChildren().add(card);
+        }
+    }
 
 }
