@@ -27,7 +27,7 @@ import javafx.scene.text.Font;
 public class BudjetFormController implements Initializable {
 
     @FXML
-    private TableColumn<BudjetData, String> allocation_col;
+    private ComboBox<String> allocation_cb;
 
     @FXML
     private TableColumn<BudjetData, Double> amount_col;
@@ -40,6 +40,10 @@ public class BudjetFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ObservableList<String> list = FXCollections.observableArrayList();
+        list.addAll(BudjetData.MANUAL, BudjetData.AUTO);
+        allocation_cb.setItems(list);
+
         ObservableList<BudjetData> budjets = FXCollections.observableArrayList();
         for (Color color : Color.colors) {
             ExpenseCategoryData expense = new ExpenseCategoryData("Category", color);
@@ -70,6 +74,7 @@ public class BudjetFormController implements Initializable {
                     setGraphic(null);
                 } else {
                     label.setText(expense.getName());
+                    label.textFillProperty().set(Paint.valueOf("black"));
                     circle.setFill(Paint.valueOf(expense.getColor().getHex()));
                     setGraphic(hBox);
                 }
@@ -105,20 +110,17 @@ public class BudjetFormController implements Initializable {
                 } else {
                     BudjetData model = getTableRow().getItem();
 
-                    if (model != null) {
                     
-                        model.allocationProperty().addListener((obs, oldVal, newVal) -> {
-                            if (newVal != null && newVal.equals(BudjetData.MANUAL)) {
-                                unit_label.setText("XAF");
-                            } else if (newVal != null) {
-                                unit_label.setText("%");
-                            }
-                        });
-                    }
-
+                    allocation_cb.valueProperty().addListener((obs, oldVal, newVal) -> {
+                        if (newVal != null && newVal.equals(BudjetData.MANUAL)) {
+                            unit_label.setText("XAF");
+                        } else if (newVal != null && newVal.equals(BudjetData.AUTO)) {
+                            unit_label.setText("%");
+                        }
+                    });
 
                     if (model != null) {
-                        model.amountProperty().bind(spinner.valueProperty());
+                        model.amountProperty().bind(this.spinner.valueProperty());
                         label.textProperty().bind(model.amountProperty().asString());    
                     }
                     setGraphic(vBox);
@@ -127,37 +129,8 @@ public class BudjetFormController implements Initializable {
         });
         amount_col.editableProperty().set(true);
 
-        // set factory for the last column
-        allocation_col.setCellValueFactory(cellData -> cellData.getValue().allocationProperty());
-        allocation_col.setCellFactory(cellData -> new TableCell<BudjetData, String>() {
-            private ComboBox<String> cb = new ComboBox<>();
-            private HBox hBox = new HBox();
+        allocation_cb.setValue(BudjetData.MANUAL);
 
-            {
-                ObservableList<String> list = FXCollections.observableArrayList();
-                list.addAll(BudjetData.MANUAL, BudjetData.AUTO);
-                cb.setItems(list);
-                hBox.getChildren().add(cb);
-            }
-
-            @Override
-            protected void updateItem(String allocation, boolean empty) {
-                super.updateItem(allocation, empty);
-                BudjetData model = getTableRow().getItem();
-
-                if (empty || allocation == null) {
-                    setGraphic(null);
-                } else {
-
-                    setGraphic(hBox);
-
-                    if (model != null) {
-                        cb.setValue(allocation);
-                        model.allocationProperty().bind(cb.valueProperty());                        
-                    } 
-                }
-            }
-        });
     }   
 
 }

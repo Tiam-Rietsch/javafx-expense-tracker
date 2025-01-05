@@ -92,6 +92,11 @@
     -fx-text-fill: black;
 }
 
+.income-table .table-cell:selected .label {
+    /* -fx-background-color: transparent; */
+    -fx-text-fill: black;
+}
+
 .amt-column {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
