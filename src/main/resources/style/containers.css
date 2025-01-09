@@ -1,0 +1,52 @@
+.window-container {
+    -fx-background-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+
+.sidebar {
+    -fx-background-color: #173B45;
+}
+
+.sidebar .button {
+    -fx-background-color: #173B45;
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-cursor: pointer;
+}
+
+.sidebar .button:hover {
+    -fx-background-color: #40626b;
+}
+
+.sidebar .button.selected {
+    -fx-background-color: #FF8225;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.216), 2, 0.5, 0, 1);
+}
+
+.left-container {
+    -fx-background-color: #f8eded;
+}
+
+.right-container {
+    -fx-background-color: white;
+}
+
+.income-container {
+    -fx-background-radius: 5px 5px 0 0;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+}
+
+.form {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.458), 30 , 0.0, -20, 5);
+    -fx-border-color: #d0d0d0a5;
+    -fx-border-radius: 5px;
+}

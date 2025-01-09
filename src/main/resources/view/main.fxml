@@ -13,7 +13,7 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="1000.0">
          <left>
-            <AnchorPane prefHeight="700.0" prefWidth="250.0" styleClass="sidebar" stylesheets="@../style/sidebar.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="700.0" prefWidth="250.0" styleClass="sidebar" stylesheets="@../style/containers.css" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="25.0" layoutY="35.0" text="Net worth" textFill="#f8eded" AnchorPane.leftAnchor="26.0">
                      <font>

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.tiam.model.ExpenseCategoryData;
 import com.tiam.service.Color;
 
 import javafx.event.ActionEvent;
@@ -131,7 +132,10 @@ public class ExpensePaneController extends StackPane implements Initializable{
 
     public void testCard() {
         for (Color color : Color.colors) {
-            ExpenseCardController card = new ExpenseCardController("Savings", color);
+            ExpenseCategoryData expenseCategory = new ExpenseCategoryData();
+            expenseCategory.setColor(color);
+            expenseCategory.setName("Savings");
+            ExpenseCardController card = new ExpenseCardController(expenseCategory);
             card.onMouseClickedProperty().set(event -> handleExpenseCardClick(event));
             card.prefWidthProperty().bind(expense_category_container.prefWidthProperty());
             expense_category_container.getChildren().add(card);

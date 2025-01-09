@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
@@ -15,6 +16,10 @@
             <Button layoutX="273.0" layoutY="56.0" mnemonicParsing="false" onAction="#addIncomeStream" prefHeight="30.0" prefWidth="65.0" styleClass="primary-btn" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
             <Button layoutX="204.0" layoutY="56.0" mnemonicParsing="false" onAction="#closeForm" prefHeight="30.0" prefWidth="65.0" styleClass="danger-btn" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="80.0" />
          </children>
+         <stylesheets>
+            <URL value="@../style/ui-components.css" />
+            <URL value="@../style/custom-components.css" />
+         </stylesheets>
       </AnchorPane>
    </children>
 </StackPane>

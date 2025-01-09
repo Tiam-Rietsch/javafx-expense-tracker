@@ -1,0 +1,325 @@
+/* ================================= Table views */
+
+.default-table .column-header-background {
+    -fx-background-color: #173B45;
+    -fx-background-radius: 5px;
+}
+
+.default-table {
+    -fx-background-radius: 5px 5px 0 0;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.default-table .column-header {
+    -fx-background-color: #173B45;
+    -fx-text-fill: white;
+    -fx-pref-height: 35px;
+    -fx-background-radius: 5px 5px 0 0;
+    -fx-border-radius: 5px;
+}
+
+.default-table .column-header .label {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-padding: 0 0 0 5px;
+    -fx-alignment: left;
+}
+
+.default-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: #1d3f480f;
+    -fx-border-width: 0 0 1px 0;
+    -fx-font-size: 14px;
+    -fx-pref-height: 30px;
+    -fx-alignment: center;
+    -fx-start-margin: 5px;
+    -fx-end-margin: 5px;
+}
+
+.default-table .table-row-cell:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+
+.default-table .table-cell {
+    -fx-padding: 0 0 0 5px;
+    -fx-text-fill: black;
+    -fx-border-color: transparent;
+}
+
+.default-table .table-cell:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+
+.default-table .table-cell:selected .label {
+    -fx-text-fill: black;
+}
+
+/* ================================= Buttons */
+.primary-btn {
+    -fx-background-color: #FF8225;
+    -fx-text-fill: white;
+}
+
+.danger-btn {
+    -fx-background-color: #B43F3F;
+    -fx-text-fill: white;
+}
+
+.add-button {
+    -fx-background-color: #FF8225;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* ================================= Inputs */
+.input-field {
+    -fx-background-color: #f8eded55;
+    -fx-text-fill: black;
+    -fx-border-color: #F8EDED;
+    -fx-border-width: 1;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* ================================= datepicker */
+.default-datepicker {
+    -fx-background-radius: 5px;
+    -fx-background-color: white;
+    -fx-border-color: #173B45;
+    -fx-border-width: 2px;
+    /* -fx-padding: 5px; */
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+}
+
+.default-datepicker:hover {
+    -fx-border-color: #284e59; 
+}
+
+.default-datepicker:focused {
+    -fx-border-color: #173B45;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+.default-datepicker .arrow-button {
+    -fx-background-color: #173B45;
+}
+
+
+.default-datepicker .arrow-button:hover {
+    -fx-background-color: #284e59;
+}
+
+.default-datepicker .arrow {
+    -fx-background-color: white;
+}
+
+/* Popup calendar (CalendarView) */
+.date-picker-popup {
+    -fx-background-color: white;
+    -fx-border-color: #173B45;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+/* Day cells in the calendar */
+.date-picker-popup .day-cell {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+
+/* Day cells hover effect */
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #e3f2f4; /* Light teal for hover */
+}
+
+/* Selected day */
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #173B45;
+    -fx-text-fill: white;
+}
+
+/* Today highlight */
+.date-picker-popup .day-cell:today {
+    -fx-border-color: #173B45;
+    -fx-border-width: 2px;
+    -fx-background-color: #eaf6f7; /* Light teal background for today */
+}
+
+/* Month/Year navigation buttons */
+.date-picker-popup .spinner .increment-arrow-button,
+.date-picker-popup .spinner .decrement-arrow-button {
+    -fx-background-color: #173B45;
+    -fx-background-radius: 5px;
+}
+
+/* Hover effect for navigation buttons */
+.date-picker-popup .spinner .increment-arrow-button:hover,
+.date-picker-popup .spinner .decrement-arrow-button:hover {
+    -fx-background-color: #284e59;
+}
+
+/* Month/Year labels */
+.default-datepicker .date-picker-popup .spinner .label {
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+
+/* Weekday headers */
+.default-datepicker .date-picker-popup .weekday-label {
+    -fx-background-color: #173B45;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Week number (optional, if shown) */
+.date-picker-popup .week-number-label {
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-background-color: white;
+}
+
+/* ================================= combobox */
+
+.default-combobox {
+    -fx-background-radius: 5px;
+    -fx-background-color: white;
+    -fx-border-color: #173B45;
+    -fx-border-width: 2px;
+    /* -fx-padding: 5px; */
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+}
+
+.default-combobox:hover {
+    -fx-border-color: #284e59; 
+}
+
+.default-combobox:focused {
+    -fx-border-color: #173B45;
+    -fx-border-width: 2.5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+.default-combobox .arrow {
+    -fx-background-color: white;
+
+}
+
+.default-combobox .arrow-button {
+    -fx-background-color: #173B45;
+
+}
+
+
+.default-combobox .arrow-button:hover {
+    -fx-background-color: #284e59;
+}
+
+/* ================================= spinner */
+.default-spinner {
+    -fx-background-radius: 5px;
+    -fx-background-color: white;
+    -fx-border-color: #173B45;
+    -fx-border-width: 2px;
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+}
+
+.default-spinner:hover {
+    -fx-border-color: #284e59;
+}
+
+.default-spinner:focused {
+    -fx-border-color: #173B45;
+    -fx-border-width: 2.5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+.default-spinner .increment-arrow-button,
+.default-spinner .decrement-arrow-button {
+    -fx-background-color: #173B45;
+}
+
+.default-spinner .increment-arrow-button:hover,
+.default-spinner .decrement-arrow-button:hover {
+    -fx-background-color: #284e59;
+}
+
+.default-spinner .text-field {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-padding: 5px;
+}
+
+.default-spinner .increment-arrow {
+    -fx-background-color: white;
+}
+
+.default-spinner .decrement-arrow {
+    -fx-background-color: white;
+}
+
+
+/* ================================= scrollbars */
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent; 
+    -fx-padding: 0;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #68a3b3;
+    -fx-background-radius: 5px; 
+    -fx-padding: 2px;
+}
+
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #173B45; 
+}
+
+.scroll-bar:horizontal .track {
+    -fx-background-color: #b7dfea; 
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #68a3b3;
+    -fx-background-radius: 5px; 
+    -fx-padding: 2px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #173B45; 
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: #b7dfea; 
+}
+
+
+/* ================================== scroll pane */
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-pref-width: 10px;
+} */
+
+

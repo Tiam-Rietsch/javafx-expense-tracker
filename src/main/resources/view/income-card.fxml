@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="300.0" styleClass="income-card" stylesheets="@../style/pane.css" type="AnchorPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="300.0" styleClass="income-card" stylesheets="@../style/custom-components.css" type="AnchorPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="title_label" focusTraversable="false" layoutX="22.0" layoutY="13.0" mouseTransparent="true" text="Source of income" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="5.0">
          <font>

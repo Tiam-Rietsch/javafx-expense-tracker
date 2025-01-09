@@ -1,0 +1,49 @@
+.income-card,
+.expense-card {
+    -fx-background-color: white;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.income-card:hover,
+.expense-card:hover {
+    -fx-background-color: #0000000c;
+}
+
+.income-card.selected,
+.expense-card.selected {
+    -fx-background-color: #0000000f;
+    -fx-text-fill: white;
+    -fx-border-width: 2px;
+    -fx-border-color: rgba(0, 0, 0, 0.095);
+}
+
+.amt-column {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.amt-column .table-cell {
+    -fx-text-fill: blue;
+}
+
+.floating-btn {
+    -fx-background-color: #FF8225;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, white, 2, 0.5, 0, 1);
+}
+
+.floating-btn:hover {
+    -fx-background-color: #FF8225;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, white, 2, 0.5, 0, 1);
+}
+
+.color-selection {
+    -fx-background-color: white;
+    -fx-border-color: #d0d0d0a5;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: black;
+}

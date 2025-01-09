@@ -9,10 +9,6 @@ public class ExpenseCategoryData {
     private final SimpleObjectProperty<Color> colorProp = new SimpleObjectProperty<>();
     private final SimpleStringProperty nameProp = new SimpleStringProperty();
 
-    public ExpenseCategoryData(String name, Color color) {
-        this.colorProp.set(color);
-        this.nameProp.set(name);
-    }
 
     public Color getColor() {
         return colorProp.get();

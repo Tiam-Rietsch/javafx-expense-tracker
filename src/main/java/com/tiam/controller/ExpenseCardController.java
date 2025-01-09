@@ -2,6 +2,7 @@ package com.tiam.controller;
 
 import java.io.IOException;
 
+import com.tiam.model.ExpenseCategoryData;
 import com.tiam.service.Color;
 
 import javafx.fxml.FXML;
@@ -22,10 +23,9 @@ public class ExpenseCardController extends AnchorPane {
     @FXML
     private Label title_label;
 
-    private String title;
-    private Color color;
+    private ExpenseCategoryData expenseCategory;
 
-    public ExpenseCardController(String title, Color color) {
+    public ExpenseCardController(ExpenseCategoryData expenseCategory) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/expense-card.fxml"));
             loader.setRoot(this);
@@ -35,11 +35,10 @@ public class ExpenseCardController extends AnchorPane {
             e.printStackTrace();
         }
 
-        this.title = title;
-        this.color = color;
+        this.expenseCategory = expenseCategory;
 
-        this.expense_rectangle.setFill(Paint.valueOf(color.getHex()));
-        this.title_label.setText(title);
+        this.expense_rectangle.setFill(Paint.valueOf(expenseCategory.getColor().getHex()));
+        this.title_label.setText(expenseCategory.getName());
     }
     
 }

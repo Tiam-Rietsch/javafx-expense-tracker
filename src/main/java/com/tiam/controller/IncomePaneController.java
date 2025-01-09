@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.tiam.model.IncomeStreamData;
 import com.tiam.service.Color;
 
 import javafx.event.ActionEvent;
@@ -111,7 +112,10 @@ public class IncomePaneController extends StackPane implements Initializable {
 
     public void testCards() {
         for (Color color : Color.colors) {
-            IncomeCardController incomeCard = new IncomeCardController("Job", color, income_table);
+            IncomeStreamData incomeStream = new IncomeStreamData();
+            incomeStream.setColor(color);
+            incomeStream.setName("Job");
+            IncomeCardController incomeCard = new IncomeCardController(incomeStream);
             income_stream_container.getChildren().add(incomeCard);
             incomeCard.prefWidthProperty().bind(income_stream_container.prefWidthProperty());
             incomeCard.onMouseClickedProperty().set(event -> handleIncomeStreamSelect(event));

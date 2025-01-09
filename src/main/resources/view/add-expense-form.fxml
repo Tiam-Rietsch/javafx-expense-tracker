@@ -9,7 +9,7 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="145.0" prefWidth="349.0" styleClass="form" stylesheets="@../style/addIncomeForm.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiam.controller.AddExpenseForm">
    <children>
-      <AnchorPane prefHeight="107.0" prefWidth="350.0" styleClass="form">
+      <AnchorPane prefHeight="107.0" prefWidth="350.0" styleClass="form" stylesheets="@../style/ui-components.css">
          <children>
             <TextField fx:id="expense_reason_tf" layoutX="15.200000000000001" layoutY="14.0" prefHeight="32.0" prefWidth="322.0" promptText="What did you spend your money on ?" styleClass="input-field" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
             <Button layoutX="273.0" layoutY="56.0" mnemonicParsing="false" onAction="#addExpense" prefHeight="30.0" prefWidth="65.0" styleClass="primary-btn" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />

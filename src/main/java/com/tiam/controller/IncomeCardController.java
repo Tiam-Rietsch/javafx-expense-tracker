@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.tiam.model.IncomeStreamData;
 import com.tiam.service.Color;
 
 import javafx.fxml.FXML;
@@ -28,11 +29,9 @@ public class IncomeCardController extends AnchorPane {
     @FXML
     private Label title_label;
 
-    private Color cardColor;
-    private String title;
-    private TableView<?> income_table;
+    private IncomeStreamData incomeStream;
 
-    public IncomeCardController(String title, Color cardColor, TableView<?> income_table) {
+    public IncomeCardController(IncomeStreamData incomeStream) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/income-card.fxml"));
             loader.setRoot(this);
@@ -42,12 +41,9 @@ public class IncomeCardController extends AnchorPane {
             e.printStackTrace();
         }
 
-        this.title = title;
-        this.cardColor = cardColor;
-        this.income_table = income_table;
-
-        income_rectangle.setFill(Paint.valueOf(cardColor.getHex()));
-        title_label.setText(title);
+        this.incomeStream = incomeStream;
+        income_rectangle.setFill(Paint.valueOf(incomeStream.getColor().getHex()));
+        title_label.setText(incomeStream.getName());
 
     }
 
