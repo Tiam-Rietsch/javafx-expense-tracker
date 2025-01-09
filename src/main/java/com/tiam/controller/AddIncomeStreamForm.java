@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.tiam.service.Color;
+import com.tiam.utils.ColorListCell;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,57 +40,8 @@ public class AddIncomeStreamForm implements Initializable {
     public  void initialize(URL location, ResourceBundle resources) {
         colors_cb.getItems().addAll(Color.colors);
 
-        colors_cb.setCellFactory(listview -> new ListCell<Color>() {
-            private HBox hBox = new HBox();
-            private Circle circle = new Circle(10);
-            private Label label = new Label();
-
-            {
-                hBox.getChildren().addAll(circle, label);
-                hBox.setSpacing(10);
-                hBox.setAlignment(Pos.CENTER_LEFT);
-            }
-
-            @Override
-            protected void updateItem(Color color, boolean empty) {
-                super.updateItem(color, empty);
-
-                if (empty || color == null) {
-                    setGraphic(null);
-                } else {
-                    this.circle.setFill(Paint.valueOf(color.getHex()));
-                    this.label.setText(color.getName());
-                    this.label.setTextFill(Paint.valueOf("black"));
-                    setGraphic(hBox);
-                }
-            }
-        });
-
-        colors_cb.setButtonCell(new ListCell<Color>() {
-            private HBox hBox = new HBox();
-            private Circle circle = new Circle(10);
-            private Label label = new Label();
-
-            {
-                hBox.getChildren().addAll(circle, label);
-                hBox.setSpacing(10);
-                hBox.setAlignment(Pos.CENTER_LEFT);
-            }
-
-            @Override
-            protected void updateItem(Color color, boolean empty) {
-                super.updateItem(color, empty);
-
-                if (empty || color == null) {
-                    setGraphic(null);
-                } else {
-                    this.circle.setFill(Paint.valueOf(color.getHex()));
-                    this.label.setText(color.getName());
-                    this.label.setTextFill(Paint.valueOf("black"));
-                    setGraphic(hBox);
-                }
-            }
-        });
+        colors_cb.setCellFactory(listView -> new ColorListCell());
+        colors_cb.setButtonCell(new ColorListCell());
 
         colors_cb.getSelectionModel().select(0);
     }

@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.tiam.service.Color;
+import com.tiam.utils.ColorListCell;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,57 +30,8 @@ public class AddExpenseCategoryForm implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         colors_cb.getItems().addAll(Color.colors);
 
-        colors_cb.setCellFactory(listview -> new ListCell<Color>() {
-            private HBox hBox = new HBox();
-            private Label label = new Label();
-            private Circle circle = new Circle(10);
-
-            {
-                hBox.getChildren().addAll(circle, label);
-                hBox.setAlignment(Pos.CENTER_LEFT);
-                hBox.spacingProperty().set(10);
-            }
-
-            @Override
-            protected void updateItem(Color color, boolean empty) {
-                super.updateItem(color, empty);
-
-                if (empty || color == null) {
-                    setGraphic(null);
-                } else {
-                    this.circle.setFill(Paint.valueOf(color.getHex()));
-                    this.label.setTextFill(Paint.valueOf("black"));
-                    this.label.setText(color.getName());
-                    setGraphic(hBox);
-                }
-            }
-        });
-
-        colors_cb.setButtonCell(new ListCell<Color>() {
-            private HBox hBox = new HBox();
-            private Label label = new Label();
-            private Circle circle = new Circle(10);
-
-            {
-                hBox.getChildren().addAll(circle, label);
-                hBox.setAlignment(Pos.CENTER_LEFT);
-                hBox.spacingProperty().set(10);
-            }
-
-            @Override
-            protected void updateItem(Color color, boolean empty) {
-                super.updateItem(color, empty);
-
-                if (empty || color == null) {
-                    setGraphic(null);
-                } else {
-                    this.circle.setFill(Paint.valueOf(color.getHex()));
-                    this.label.setTextFill(Paint.valueOf("black"));
-                    this.label.setText(color.getName());
-                    setGraphic(hBox);
-                }
-            }            
-        });
+        colors_cb.setCellFactory(listview -> new ColorListCell());
+        colors_cb.setButtonCell(new ColorListCell());
     }
 
 
