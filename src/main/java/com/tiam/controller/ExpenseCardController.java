@@ -3,7 +3,6 @@ package com.tiam.controller;
 import java.io.IOException;
 
 import com.tiam.model.ExpenseCategoryData;
-import com.tiam.service.Color;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
