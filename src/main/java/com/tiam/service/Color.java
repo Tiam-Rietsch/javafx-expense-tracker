@@ -22,6 +22,16 @@ public class Color {
         this.hex = hex;
     }
 
+    public static Color getColorFromName(String name) {
+        for (Color color : colors) {
+            if (color.getName().equals(name)) {
+                return color;
+            }
+        }
+        return null;
+    }
+
+
     public String getHex() {
         return hex;
     }

@@ -2,11 +2,18 @@ package com.tiam.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.tiam.model.IncomeStreamData;
 import com.tiam.service.Color;
+import com.tiam.service.Database;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +35,9 @@ public class IncomePaneController extends StackPane implements Initializable {
     private AnchorPane empty_income_pane;
 
     @FXML
+    private AnchorPane income_pane;
+
+    @FXML
     private AnchorPane income_detail_pane;
 
     @FXML
@@ -38,6 +48,11 @@ public class IncomePaneController extends StackPane implements Initializable {
 
     @FXML
     private AnchorPane msg_container;
+
+    // database tools
+    private Connection con;
+    private PreparedStatement statement;
+    private ResultSet resultSet;
 
 
     public IncomePaneController() {
@@ -63,7 +78,7 @@ public class IncomePaneController extends StackPane implements Initializable {
             msg_container.layoutXProperty().set((newVal.doubleValue() - msg_container_width) / 2);
         });
 
-        testCards();
+        fillIncomeStreamList();
     }
 
     /** --------------------------- Event handlers */
@@ -109,6 +124,52 @@ public class IncomePaneController extends StackPane implements Initializable {
 
 
     /** --------------------------------------- utilities */
+
+    private ObservableList<IncomeStreamData> fetchIncomStreams() {
+        String query = "SELECT * FROM IncomeStream";
+        con = Database.getConnection();
+        ObservableList<IncomeStreamData> incomeStreamList = FXCollections.observableArrayList();
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                IncomeStreamData data = new IncomeStreamData();
+                data.setName(resultSet.getString("name"));
+                data.setAmount(resultSet.getDouble("amount"));
+                data.setColor(Color.getColorFromName(resultSet.getString("color_name")));
+                incomeStreamList.add(data);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return incomeStreamList;
+    }
+
+    private void fillIncomeStreamList() {
+        // get the list of income from the datbase
+        ObservableList<IncomeStreamData> incomeStreamList = fetchIncomStreams();
+
+        if (incomeStreamList.isEmpty()) {
+            // if the list is empty show empty pane, otherwise add all income streams to ui
+            empty_income_pane.setVisible(true);
+            income_pane.setVisible(false);
+        } else {
+            // create an income card for each income stream and add it to income_stream_container
+            for (IncomeStreamData data : incomeStreamList) {
+                IncomeCardController incomeCard = new IncomeCardController(data);
+                income_stream_container.getChildren().add(incomeCard);
+                incomeCard.prefWidthProperty().bind(income_stream_container.prefWidthProperty());
+                incomeCard.onMouseClickedProperty().set(event -> handleIncomeStreamSelect(event));
+            }
+
+            // show the income pane
+            empty_income_pane.setVisible(false);
+            income_pane.setVisible(true);
+        }
+    }
 
     public void testCards() {
         for (Color color : Color.colors) {
