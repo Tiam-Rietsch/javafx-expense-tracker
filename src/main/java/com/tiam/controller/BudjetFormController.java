@@ -30,9 +30,6 @@ public class BudjetFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<String> list = FXCollections.observableArrayList();
-        list.addAll(BudjetData.MANUAL, BudjetData.AUTO);
-        // allocation_cb.setItems(list);
 
         ObservableList<BudjetData> budjets = FXCollections.observableArrayList();
         for (Color color : Color.colors) {

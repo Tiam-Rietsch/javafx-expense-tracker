@@ -10,6 +10,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
+
+/**
+ * 
+ */
 public class ColorListCell extends ListCell<Color> {
     private HBox hBox = new HBox();
     private Circle circle = new Circle(10);
