@@ -7,7 +7,7 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="StackPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane fx:id="empty_report_pane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../style/pane.css">
+      <AnchorPane fx:id="empty_report_pane" prefHeight="23.0" prefWidth="287.0">
          <children>
             <AnchorPane fx:id="msg_container" layoutX="41.0" layoutY="68.0" prefHeight="130.0" prefWidth="470.0">
                <children>

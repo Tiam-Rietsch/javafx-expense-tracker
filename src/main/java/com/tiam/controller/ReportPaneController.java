@@ -7,8 +7,12 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ReportPaneController extends StackPane implements Initializable {
 
@@ -41,7 +45,26 @@ public class ReportPaneController extends StackPane implements Initializable {
             msg_container.layoutXProperty().set((newVal.doubleValue() - msg_container_width) / 2);
         });
 
-        System.out.println("hellow");
+        openDashboard();
+
+    }
+
+    public void openDashboard() {
+        try {
+            Stage dashboardWindow = new Stage();
+
+            Parent root = FXMLLoader.load(getClass().getResource("/view/dashboard.fxml"));
+            Scene dashboardScene = new Scene(root);
+
+            dashboardWindow.setScene(dashboardScene);
+            dashboardWindow.initStyle(StageStyle.UTILITY);
+            dashboardWindow.setAlwaysOnTop(true);
+            dashboardWindow.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     

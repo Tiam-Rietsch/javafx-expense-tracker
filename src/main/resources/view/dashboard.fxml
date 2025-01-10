@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="report_pane" prefHeight="700.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiam.controller.DashboardController">
+   <children>
+      <AnchorPane layoutX="183.0" layoutY="146.0" prefHeight="691.0" prefWidth="526.0" style="-fx-background-color: #F8EDED;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane fx:id="incomeOverviewCard" layoutX="14.0" layoutY="14.0" prefHeight="120.0" prefWidth="210.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <styleClass>
+                  <String fx:value="dashboard-card" />
+                  <String fx:value="slateblue-gradient" />
+               </styleClass>
+               <children>
+                  <Label layoutX="14.0" layoutY="20.0" text="Total Expenditurs" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="20.0">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="46.0" text="250 000 XAF" textFill="WHITE" AnchorPane.leftAnchor="15.0">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+            <AnchorPane fx:id="expenseOverviewCard" layoutX="250.0" layoutY="10.0" prefHeight="120.0" prefWidth="210.0" AnchorPane.leftAnchor="227.0">
+               <styleClass>
+                  <String fx:value="dashboard-card" />
+                  <String fx:value="ashgray-gradient" />
+               </styleClass>
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Total Income" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="20.0">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="46.0" text="250 000 XAF" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+            <AnchorPane fx:id="savingOverviewCard" layoutX="428.0" layoutY="10.0" prefHeight="55.0" prefWidth="200.0" AnchorPane.rightAnchor="5.0">
+               <children>
+                  <Label layoutX="7.0" layoutY="5.0" text="remaining budjet" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="23.0" prefHeight="27.0" prefWidth="180.0" text="250 000 XAF" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <styleClass>
+                  <String fx:value="dashboard-card" />
+                  <String fx:value="coralpink-gradient" />
+               </styleClass></AnchorPane>
+            <AnchorPane fx:id="budjetOverviewCard" layoutX="427.0" layoutY="74.0" prefHeight="55.0" prefWidth="200.0" AnchorPane.rightAnchor="5.0">
+               <children>
+                  <Label layoutX="16.0" layoutY="7.0" text="savings" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="11.0" layoutY="19.0" prefHeight="27.0" prefWidth="180.0" text="250 000 XAF" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <styleClass>
+                  <String fx:value="dashboard-card" />
+                  <String fx:value="mintgreen-gradient" />
+               </styleClass></AnchorPane>
+            <AnchorPane layoutX="11.2" layoutY="139.0" prefHeight="318.0" prefWidth="634.0" styleClass="dashboard-card" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="5.0">
+               <children>
+                  <LineChart fx:id="trendLineChart" layoutX="12.0" layoutY="35.199999999999996" prefHeight="273.0" prefWidth="611.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0">
+                    <xAxis>
+                      <CategoryAxis fx:id="expenseTrendCategoryAxis" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis fx:id="expenseTrendLineAxis" side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+               </children></AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="423.0" prefHeight="224.0" prefWidth="634.0" styleClass="dashboard-card" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+               <children>
+                  <LineChart fx:id="incomeExpeseLineChart" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <xAxis>
+                        <CategoryAxis fx:id="incomeExpenseCategoryAxis" side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis fx:id="incomeExpenseNumberAxis" side="LEFT" />
+                     </yAxis>
+                  </LineChart>
+               </children></AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="400.0" layoutY="92.0" prefHeight="755.0" prefWidth="400.0" style="-fx-background-color: #F8EDED;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane layoutX="14.0" layoutY="222.0" prefHeight="327.0" prefWidth="385.0" styleClass="dashboard-card" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <PieChart fx:id="expensePieChart" labelLineLength="0.0" labelsVisible="false" layoutX="-42.0" layoutY="14.0" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children></AnchorPane>
+            <AnchorPane layoutX="14.0" layoutY="326.0" prefHeight="338.0" prefWidth="385.0" styleClass="dashboard-card" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="10.0">
+               <children>
+                  <StackedBarChart fx:id="expenseBudjetBarChart" layoutX="-112.0" layoutY="14.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                    <xAxis>
+                      <CategoryAxis fx:id="expenseBudjetCategoryAxis" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis fx:id="expenseBudjetNumberAxis" side="LEFT" />
+                    </yAxis>
+                  </StackedBarChart>
+               </children></AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+   <stylesheets>
+      <URL value="@../style/ui-components.css" />
+      <URL value="@../style/custom-components.css" />
+   </stylesheets>
+</AnchorPane>
