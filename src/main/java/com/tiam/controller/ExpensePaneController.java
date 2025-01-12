@@ -131,15 +131,16 @@ public class ExpensePaneController extends StackPane implements Initializable{
     /** ---------------------- Utilities */
 
     public void testCard() {
-        for (Color color : Color.colors) {
-            ExpenseCategoryData expenseCategory = new ExpenseCategoryData();
-            expenseCategory.setColor(color);
-            expenseCategory.setName("Savings");
-            ExpenseCardController card = new ExpenseCardController(expenseCategory);
-            card.onMouseClickedProperty().set(event -> handleExpenseCardClick(event));
-            card.prefWidthProperty().bind(expense_category_container.prefWidthProperty());
-            expense_category_container.getChildren().add(card);
-        }
+        ExpenseCategoryData expenseCategory = new ExpenseCategoryData();
+        expenseCategory.setColor(Color.colors[0]);
+        expenseCategory.setName("Savings");
+        ExpenseCardController card = new ExpenseCardController(expenseCategory);
+        card.onMouseClickedProperty().set(event -> handleExpenseCardClick(event));
+        card.prefWidthProperty().bind(expense_category_container.prefWidthProperty());
+        expense_category_container.getChildren().add(card);
+        // for (Color color : Color.colors) {
+
+        // }
     }
 
 }

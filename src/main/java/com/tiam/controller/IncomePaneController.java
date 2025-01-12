@@ -8,9 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.tiam.model.IncomeRecord;
 import com.tiam.model.IncomeStreamData;
 import com.tiam.service.Color;
 import com.tiam.service.Database;
+import com.tiam.service.DateManager;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +23,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -44,7 +49,13 @@ public class IncomePaneController extends StackPane implements Initializable {
     private VBox income_stream_container;
 
     @FXML
-    private TableView<?> income_table;
+    private TableView<IncomeRecord> income_table;
+
+    @FXML
+    private TableColumn<IncomeRecord, String> dateRecorded_col;
+
+    @FXML
+    private TableColumn<IncomeRecord, Double> amount_col;
 
     @FXML
     private AnchorPane msg_container;
@@ -54,6 +65,7 @@ public class IncomePaneController extends StackPane implements Initializable {
     private PreparedStatement statement;
     private ResultSet resultSet;
 
+    private IncomeCardController selectedCard = null;
 
     public IncomePaneController() {
         try {
@@ -71,10 +83,10 @@ public class IncomePaneController extends StackPane implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         int msg_container_height = 130;
         int msg_container_width = 470;
-        empty_income_pane.heightProperty().addListener((obs, oldVal, newVal) -> {
+        empty_income_pane.heightProperty().addListener((_, _, newVal) -> {
             msg_container.layoutYProperty().set((newVal.doubleValue() - msg_container_height) / 2);
         });
-        empty_income_pane.widthProperty().addListener((obs, oldVal, newVal) -> {
+        empty_income_pane.widthProperty().addListener((_, _, newVal) -> {
             msg_container.layoutXProperty().set((newVal.doubleValue() - msg_container_width) / 2);
         });
 
@@ -90,27 +102,37 @@ public class IncomePaneController extends StackPane implements Initializable {
         Scene formScene = new Scene(formRoot);
         form.setScene(formScene);
         form.setTitle("New income stream");
-        form.setAlwaysOnTop(true);
         form.resizableProperty().set(false);
         form.initStyle(StageStyle.UTILITY);
         this.getParent().getParent().disableProperty().set(true);
         form.showAndWait();
         this.getParent().getParent().disableProperty().set(false);
+
+        fillIncomeStreamList();
     }
 
-    @FXML
     public void addIncome(ActionEvent actionEvent) throws IOException{
-        Stage form = new Stage();
-        Parent formRoot = FXMLLoader.load(getClass().getResource("/view/add-income-form.fxml"));
-        Scene formScene = new Scene(formRoot);
-        form.setScene(formScene);
-        form.setTitle("new income record");
-        form.setAlwaysOnTop(true);
-        form.resizableProperty().set(false);
-        form.initStyle(StageStyle.UTILITY);
-        this.getParent().getParent().disableProperty().set(true);
-        form.showAndWait();
-        this.getParent().getParent().disableProperty().set(false);
+        if (selectedCard == null) {
+            Alert dialog = new Alert(AlertType.WARNING);
+            dialog.setContentText("Please first select an income stream to insert a new record");
+            dialog.showAndWait();
+        } else {
+            Stage form = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/add-income-form.fxml"));
+            loader.load();
+            ((AddIncomeForm) loader.getController()).setSelectedIncomeId(selectedCard.getIncomeId());
+            Parent formRoot = loader.getRoot();
+            Scene formScene = new Scene(formRoot);
+            form.setScene(formScene);
+            form.setTitle("new income record");
+            form.resizableProperty().set(false);
+            form.initStyle(StageStyle.UTILITY);
+            this.getParent().getParent().disableProperty().set(true);
+            form.showAndWait();
+            this.getParent().getParent().disableProperty().set(false);    
+
+            fillIncomeRecordTable();
+        }
     }
 
     public void handleIncomeStreamSelect(MouseEvent mouseEvent) {
@@ -118,6 +140,8 @@ public class IncomePaneController extends StackPane implements Initializable {
             card.getStyleClass().remove("selected");
             if (mouseEvent.getTarget().equals(card)) {
                 card.getStyleClass().add("selected");
+                selectedCard = (IncomeCardController) card;
+                fillIncomeRecordTable();
             } 
         }
     }
@@ -136,8 +160,8 @@ public class IncomePaneController extends StackPane implements Initializable {
             while (resultSet.next()) {
                 IncomeStreamData data = new IncomeStreamData();
                 data.setName(resultSet.getString("name"));
-                data.setAmount(resultSet.getDouble("amount"));
                 data.setColor(Color.getColorFromName(resultSet.getString("color_name")));
+                data.setId(resultSet.getInt("id"));
                 incomeStreamList.add(data);
             }
 
@@ -148,9 +172,44 @@ public class IncomePaneController extends StackPane implements Initializable {
         return incomeStreamList;
     }
 
+    private ObservableList<IncomeRecord> fetchIncomRecords() {
+        ObservableList<IncomeRecord> incomeRecordList = FXCollections.observableArrayList();
+        con = Database.getConnection();
+        String query = "SELECT * FROM IncomeRecord WHERE stream_id=%d".formatted(selectedCard.getIncomeId());
+
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                IncomeRecord record = new IncomeRecord();
+                record.setAmount(resultSet.getDouble("amount"));
+                record.setId(resultSet.getInt("id"));
+                record.setLocalDate(resultSet.getString("date_recorded"));
+                incomeRecordList.add(record);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return incomeRecordList;
+    }
+
+    private void fillIncomeRecordTable() {
+        ObservableList<IncomeRecord> incomeRecordList = fetchIncomRecords();
+        income_table.getItems().clear();
+        
+        if (!incomeRecordList.isEmpty()) {
+            dateRecorded_col.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+            amount_col.setCellValueFactory(cellData -> cellData.getValue().amountProperty());
+            income_table.setItems(incomeRecordList);
+        }
+    }
+
     private void fillIncomeStreamList() {
         // get the list of income from the datbase
         ObservableList<IncomeStreamData> incomeStreamList = fetchIncomStreams();
+        // reset the income list
+        income_stream_container.getChildren().clear();
 
         if (incomeStreamList.isEmpty()) {
             // if the list is empty show empty pane, otherwise add all income streams to ui

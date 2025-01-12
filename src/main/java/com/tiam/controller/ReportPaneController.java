@@ -58,6 +58,7 @@ public class ReportPaneController extends StackPane implements Initializable {
 
             dashboardWindow.setScene(dashboardScene);
             dashboardWindow.initStyle(StageStyle.UTILITY);
+            dashboardWindow.resizableProperty().set(false);
             dashboardWindow.setAlwaysOnTop(true);
             dashboardWindow.show();
 

@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import com.tiam.model.IncomeStreamData;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -38,6 +40,10 @@ public class IncomeCardController extends AnchorPane {
         income_rectangle.setFill(Paint.valueOf(incomeStream.getColor().getHex()));
         title_label.setText(incomeStream.getName());
 
+    }
+
+    public int getIncomeId() {
+        return incomeStream.getId();
     }
 
 

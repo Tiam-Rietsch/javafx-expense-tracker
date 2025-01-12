@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleObjectProperty;
 public class IncomeStreamData {
     private final ObjectProperty<Color> colorProp = new SimpleObjectProperty<>();
     private final ObjectProperty<String> nameProp = new SimpleObjectProperty<>();
-    private final ObjectProperty<Double> amountProp = new SimpleObjectProperty<>();
+    private final ObjectProperty<Integer> idProp = new SimpleObjectProperty<>();
 
     public void setColor(Color color) {
         colorProp.set(color);
@@ -16,10 +16,6 @@ public class IncomeStreamData {
 
     public void setName(String name) {
         nameProp.set(name);
-    }
-
-    public void setAmount(Double amount) {
-        amountProp.set(amount);
     }
 
     public Color getColor() {
@@ -30,10 +26,6 @@ public class IncomeStreamData {
         return nameProp.get();
     }
 
-    public Double getAmount() {
-        return amountProp.get();
-    }
-
     public ObjectProperty<Color> colorProperty() {
         return colorProp;
     }
@@ -42,8 +34,15 @@ public class IncomeStreamData {
         return nameProp;
     }
 
-    public ObjectProperty<Double> amountProperty() {
-        return amountProp;
+    public int getId() {
+        return idProp.get();
     }
 
+    public void setId(int id) {
+        idProp.set(id);
+    }   
+
+    public ObjectProperty<Integer> idProperty() {
+        return idProperty();
+    }
 }

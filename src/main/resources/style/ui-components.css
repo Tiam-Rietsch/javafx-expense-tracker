@@ -34,7 +34,7 @@
     -fx-border-color: #1d3f480f;
     -fx-border-width: 0 0 1px 0;
     -fx-font-size: 14px;
-    -fx-pref-height: 30px;
+    -fx-pref-height: 40px;
     -fx-alignment: center;
     -fx-start-margin: 5px;
     -fx-end-margin: 5px;
@@ -49,6 +49,7 @@
     -fx-padding: 0 0 0 5px;
     -fx-text-fill: black;
     -fx-border-color: transparent;
+    -fx-alignment: center_left;
 }
 
 .default-table .table-cell:selected {
