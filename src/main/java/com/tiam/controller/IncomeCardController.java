@@ -118,6 +118,7 @@ public class IncomeCardController extends AnchorPane {
 
 
     public void showActionButtons(MouseEvent event) {
+        
         editIncomeStream_btn.setVisible(true);
         deleteIncomeStream_btn.setVisible(true);
     }

@@ -2,11 +2,19 @@ package com.tiam.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.tiam.model.ExpenseCategoryData;
 import com.tiam.service.Color;
+import com.tiam.service.Database;
 
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +36,9 @@ public class ExpensePaneController extends StackPane implements Initializable{
     private AnchorPane empty_expense_pane;
 
     @FXML
+    private AnchorPane expense_pane;
+
+    @FXML
     private VBox expense_category_container;
 
     @FXML
@@ -39,6 +50,10 @@ public class ExpensePaneController extends StackPane implements Initializable{
 
     @FXML
     private AnchorPane msg_container;
+
+    private Connection con;
+    private PreparedStatement statement;
+    private ResultSet resultSet;
 
     public ExpensePaneController() {
         try {
@@ -62,7 +77,7 @@ public class ExpensePaneController extends StackPane implements Initializable{
             msg_container.layoutXProperty().set((newVal.doubleValue() - msg_container_width) / 2);
         });
 
-        testCard();
+        fillExpenseCategoryList();
     }
 
     /** ---------------------- Event handlers  */
@@ -129,6 +144,51 @@ public class ExpensePaneController extends StackPane implements Initializable{
         }
     }
     /** ---------------------- Utilities */
+
+    public ObservableList<ExpenseCategoryData> fetchExpenseCategories() {
+        ObservableList<ExpenseCategoryData> list = FXCollections.observableArrayList();
+        String query = "SELECT * FROM ExpenseCategory";
+        con = Database.getConnection();
+
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                ExpenseCategoryData data = new ExpenseCategoryData();
+                data.setName(resultSet.getString("name"));
+                data.setColor(Color.getColorFromName(resultSet.getString("color_name")));
+                data.setId(resultSet.getInt("id"));
+                list.add(data);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+
+    public void fillExpenseCategoryList() {
+        ObservableList<ExpenseCategoryData> expenseCategoryList = fetchExpenseCategories();
+        expense_category_container.getChildren().clear();
+
+        if (expenseCategoryList.isEmpty()) {
+            empty_expense_pane.setVisible(true);
+            expense_detail_pane.setVisible(false);
+        } else {
+            for (ExpenseCategoryData expenseCategory : expenseCategoryList) {
+                ExpenseCardController card = new ExpenseCardController(expenseCategory);
+                card.setUpdateRunnable(this::fillExpenseCategoryList);
+                card.onMouseClickedProperty().set(event -> handleExpenseCardClick(event));
+                card.prefWidthProperty().bind(expense_category_container.prefWidthProperty());
+                expense_category_container.getChildren().add(card);
+            }
+
+            empty_expense_pane.setVisible(false);
+            expense_pane.setVisible(true);
+        }
+    }
 
     public void testCard() {
         ExpenseCategoryData expenseCategory = new ExpenseCategoryData();

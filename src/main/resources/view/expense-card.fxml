@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="300.0" styleClass="income-card" stylesheets="@../style/custom-components.css" type="AnchorPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="300.0" onMouseEntered="#showActionButtons" onMouseExited="#hideActionButtons" styleClass="income-card" stylesheets="@../style/custom-components.css" type="AnchorPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="title_label" focusTraversable="false" layoutX="22.0" layoutY="13.0" mouseTransparent="true" text="Expense Category" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="5.0">
          <font>
@@ -20,5 +22,17 @@
       </Label>
       <Rectangle fx:id="expense_rectangle" arcHeight="5.0" fill="DODGERBLUE" height="60.0" layoutX="1.6" layoutY="1.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" AnchorPane.bottomAnchor="-0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <FontAwesomeIconView glyphName="ARROW_RIGHT" layoutX="292.0" layoutY="38.0" mouseTransparent="true" size="24" AnchorPane.rightAnchor="15.0" />
+      <Group fx:id="editExpenseCategory_btn" layoutX="218.60000610351562" layoutY="17.0" visible="false" AnchorPane.rightAnchor="47.0">
+         <children>
+            <Button layoutX="3.0" layoutY="1.0" mnemonicParsing="false" onAction="#editExpenseCategory" prefHeight="26.0" prefWidth="28.0" styleClass="card-edit-btn" />
+            <FontAwesomeIconView fill="WHITE" fontSmoothingType="LCD" glyphName="PENCIL" layoutX="11.0" layoutY="19.0" mouseTransparent="true" size="14" styleClass="icon" />
+         </children>
+      </Group>
+      <Group fx:id="deleteExpenseCategory_btn" layoutX="184.0" layoutY="17.0" visible="false" AnchorPane.rightAnchor="80.0">
+         <children>
+            <Button layoutX="3.0" layoutY="1.0" mnemonicParsing="false" onAction="#deleteExpenseCategory" prefHeight="26.0" prefWidth="28.0" styleClass="card-del-btn" />
+            <FontAwesomeIconView fill="WHITE" fontSmoothingType="LCD" glyphName="TRASH" layoutX="11.0" layoutY="19.0" mouseTransparent="true" size="14" styleClass="icon" />
+         </children>
+      </Group>
    </children>
 </fx:root>
