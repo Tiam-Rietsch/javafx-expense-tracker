@@ -101,6 +101,6 @@ This project is licensed under the **MIT License**.
 - **Author**: Tiam Rietsch
 - **Email**: ngnotchouetiam@gmail.com
 - **GitHub**: [@Tiam-Rietsch](https://github.com/Tiam-Rietsch)
-- **LinkedIn**: [Tiam-Rietsch](https://linkedin.com/in/ngntochoue-tiam)
+- **LinkedIn**: [Ngnotchoue Tiam](https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3BVJr54dH5T7qAmQOTl3KQhQ%3D%3D)
 
 ---
