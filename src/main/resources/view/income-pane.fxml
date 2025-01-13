@@ -57,7 +57,6 @@
                      </font>
                   </Label>
                   <Button layoutX="314.0" layoutY="7.0" maxWidth="100.0" mnemonicParsing="false" onAction="#addIncomeStream" prefHeight="30.0" prefWidth="70.0" styleClass="primary-btn" text="Add" AnchorPane.topAnchor="15.0" />
-                  <Button layoutX="228.0" layoutY="7.0" maxWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" styleClass="danger-btn" text="remove" AnchorPane.topAnchor="15.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="income_detail_pane" layoutX="406.0" layoutY="129.0" prefHeight="200.0" prefWidth="200.0" styleClass="right-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -76,7 +75,7 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Button>
-                  <Label layoutX="15.0" layoutY="24.0" text="Stream ttle" AnchorPane.leftAnchor="15.0">
+                  <Label fx:id="streamTitle_label" layoutX="15.0" layoutY="24.0" text="Stream ttle" AnchorPane.leftAnchor="15.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

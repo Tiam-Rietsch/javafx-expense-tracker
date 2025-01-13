@@ -4,7 +4,6 @@ import com.tiam.service.Color;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 
 public class ExpenseCategoryData {
     private final ObjectProperty<Color> colorProp = new SimpleObjectProperty<>();

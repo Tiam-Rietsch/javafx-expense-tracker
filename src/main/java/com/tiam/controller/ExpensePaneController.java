@@ -6,9 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.tiam.model.ExpenseCategoryData;
+import com.tiam.model.ExpenseRecordData;
+import com.tiam.model.IncomeRecordData;
 import com.tiam.service.Color;
 import com.tiam.service.Database;
 
@@ -22,7 +25,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -45,11 +54,30 @@ public class ExpensePaneController extends StackPane implements Initializable{
     private AnchorPane expense_detail_pane;
 
     @FXML
-    private TableView<?> expense_table;
+    private TableView<ExpenseRecordData> expense_table;
 
+    @FXML
+    private Button deleteRecordBtn;
+
+    @FXML
+    private Button editRecordBtn;
 
     @FXML
     private AnchorPane msg_container;
+
+    @FXML
+    private TableColumn<ExpenseRecordData, String> expenseReason_col;
+    
+    @FXML
+    private TableColumn<ExpenseRecordData, Double> expenseAmount_col;
+
+    @FXML
+    private TableColumn<ExpenseRecordData, String> expenseDate_col;
+
+    @FXML
+    private Label expenditureTitle_label;
+
+    private ExpenseCardController selectedExpenseCard;
 
     private Connection con;
     private PreparedStatement statement;
@@ -91,30 +119,74 @@ public class ExpensePaneController extends StackPane implements Initializable{
         form.setTitle("New expense category");
         form.initStyle(StageStyle.UTILITY);
         form.resizableProperty().set(false);
-        form.setAlwaysOnTop(true);
         form.setScene(scene);
 
-        empty_expense_pane.getParent().getParent().getParent().setDisable(true);
+        empty_expense_pane.getScene().getRoot().setDisable(true);
         form.showAndWait();    
-        empty_expense_pane.getParent().getParent().getParent().setDisable(false);
+        empty_expense_pane.getScene().getRoot().setDisable(false);
         
+        fillExpenseCategoryList();
     }
 
     @FXML 
-    public void addExpense(ActionEvent event) throws IOException{
-        Stage form = new Stage();
-        Parent formRoot = FXMLLoader.load(getClass().getResource("/view/expense-record-insert-form.fxml"));
-        Scene scene = new Scene(formRoot);
+    public void addExpenseRecord(ActionEvent event) throws IOException{
+        if (selectedExpenseCard == null) {
 
-        form.setTitle("New expense category");
-        form.initStyle(StageStyle.UTILITY);
-        form.resizableProperty().set(false);
-        form.setAlwaysOnTop(true);
-        form.setScene(scene);
+        } else {
+            Stage form = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/expense-record-insert-form.fxml"));
+            Scene scene = new Scene(loader.load());
+            ((ExpenseRecordInsertController)loader.getController()).setSelectedExpenseId(selectedExpenseCard.getExpenseRecordId());
+    
+            form.setTitle("New expense category");
+            form.initStyle(StageStyle.UTILITY);
+            form.resizableProperty().set(false);
+            form.setScene(scene);
+    
+            empty_expense_pane.getParent().getParent().getParent().setDisable(true);
+            form.showAndWait();    
+            empty_expense_pane.getParent().getParent().getParent().setDisable(false); 
+            
+            fillExpenseRecordTable();
+        }
+    }
 
-        empty_expense_pane.getParent().getParent().getParent().setDisable(true);
-        form.showAndWait();    
-        empty_expense_pane.getParent().getParent().getParent().setDisable(false);
+    public void editExpenseRecord(ActionEvent event) throws IOException {
+        ExpenseRecordData selectedExpenseRecord = expense_table.getSelectionModel().getSelectedItem(); 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/expense-record-update-form.fxml"));
+        Scene scene = new Scene(loader.load());
+        ((ExpenseRecordUpdateController)loader.getController()).setExpenseCategory(selectedExpenseRecord);
+        Stage editForm = new Stage(StageStyle.UTILITY);
+        editForm.setResizable(false);
+        editForm.setScene(scene);
+        this.getParent().getScene().getRoot().setDisable(true);
+        editForm.showAndWait();
+        this.getParent().getScene().getRoot().setDisable(false);
+
+        fillExpenseRecordTable();
+
+    }
+
+    public void deleteExpenseRecord(ActionEvent event) throws IOException {
+     Alert dialog = new Alert(AlertType.CONFIRMATION);
+        dialog.setContentText("Are your sure you want to delete the selected record ?");
+        dialog.getButtonTypes().setAll(ButtonType.YES, ButtonType.CANCEL);
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        ExpenseRecordData selectedRecord = expense_table.getSelectionModel().getSelectedItem();
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+            String query = "DELETE FROM ExpenseRecord WHERE id=%d".formatted(selectedRecord.getId());
+            con = Database.getConnection();
+
+            try {
+                statement = con.prepareStatement(query);
+                statement.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } 
+
+        fillExpenseRecordTable();
     }
 
     @FXML
@@ -140,7 +212,20 @@ public class ExpensePaneController extends StackPane implements Initializable{
 
             if (card.equals(mouseEvent.getTarget())) {
                 card.getStyleClass().add("selected");
+                selectedExpenseCard = (ExpenseCardController) card;
+                fillExpenseRecordTable();
             }
+        }
+    }
+
+    public void showRecordActionButtons() {
+        ExpenseRecordData selectedRecord = expense_table.getSelectionModel().getSelectedItem();
+        if (selectedRecord != null) {
+            editRecordBtn.setVisible(true);
+            deleteRecordBtn.setVisible(true);
+        } else {
+            editRecordBtn.setVisible(false);
+            deleteRecordBtn.setVisible(false);
         }
     }
     /** ---------------------- Utilities */
@@ -167,11 +252,56 @@ public class ExpensePaneController extends StackPane implements Initializable{
 
         return list;
     }
+    
+    public ObservableList<ExpenseRecordData> fetchExpenseRecords() {
+        ObservableList<ExpenseRecordData> list = FXCollections.observableArrayList();
+        String query = "SELECT * FROM ExpenseRecord WHERE category_id=%d".formatted(selectedExpenseCard.getExpenseRecordId());
+        con = Database.getConnection();
+
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                ExpenseRecordData data = new ExpenseRecordData();
+                data.setAmount(resultSet.getDouble("amount"));
+                data.setReason(resultSet.getString("reason"));
+                data.setId(resultSet.getInt("id"));
+                data.setDate(resultSet.getString("date_spent"));
+                list.add(data);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public void fillExpenseRecordTable() {
+        expense_table.getItems().clear();
+        expenditureTitle_label.setText(selectedExpenseCard.getSelectedExpense().getName());
+        showRecordActionButtons();
+
+        if (selectedExpenseCard != null) {
+            ObservableList<ExpenseRecordData> expenseRecordList = fetchExpenseRecords();
+    
+            expenseDate_col.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+            expenseReason_col.setCellValueFactory(cellData -> cellData.getValue().reasonProperty());
+            expenseAmount_col.setCellValueFactory(cellData -> cellData.getValue().amountProperty());
+            
+            expense_table.setItems(expenseRecordList);    
+        } else {
+            Alert dialog = new Alert(AlertType.WARNING);
+            dialog.setContentText("first select an expense category");
+            dialog.showAndWait();
+        }
+    }
 
 
     public void fillExpenseCategoryList() {
         ObservableList<ExpenseCategoryData> expenseCategoryList = fetchExpenseCategories();
         expense_category_container.getChildren().clear();
+        expense_table.getItems().clear();
 
         if (expenseCategoryList.isEmpty()) {
             empty_expense_pane.setVisible(true);

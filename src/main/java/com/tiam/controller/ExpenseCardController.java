@@ -3,19 +3,28 @@ package com.tiam.controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Optional;
 
 import com.tiam.model.ExpenseCategoryData;
+import com.tiam.service.Database;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ExpenseCardController extends AnchorPane {
 
@@ -71,17 +80,55 @@ public class ExpenseCardController extends AnchorPane {
     }
 
     public void deleteExpenseCategory(ActionEvent event) {
+        Alert dialog = new Alert(AlertType.CONFIRMATION);
+        dialog.setContentText("Are your sure you want to delete the selected record ?");
+        dialog.getButtonTypes().setAll(ButtonType.YES, ButtonType.CANCEL);
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+            String query = "DELETE FROM ExpenseCategory WHERE id=%d".formatted(expenseCategory.getId());
+            con = Database.getConnection();
+
+            try {
+                statement = con.prepareStatement(query);
+                statement.execute();
+
+                updateExpenseCategoryList.run();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
-    public void editExpenseCategory(ActionEvent event) {
-        
+
+    public void editExpenseCategory(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/expense-category-update-form.fxml"));
+        Scene scene = new Scene(loader.load());
+        ((ExpenseCategoryUpdateController)loader.getController()).setExpenseCategory(expenseCategory);
+        Stage editForm = new Stage(StageStyle.UTILITY);
+        editForm.setScene(scene);
+        editForm.setResizable(false);
+        editForm.setTitle("update expense category");
+        this.getParent().getScene().getRoot().setDisable(true);
+        editForm.showAndWait();
+        this.getParent().getScene().getRoot().setDisable(false);
+
+        updateExpenseCategoryList.run();
     }
+
 
     // --------------------------------------------------------- Utils
     public void setUpdateRunnable(Runnable runnable) {
         updateExpenseCategoryList = runnable;
     }
 
-    
+    public int getExpenseRecordId() {
+        return expenseCategory.getId();
+    }
+
+    public ExpenseCategoryData getSelectedExpense() {
+        return expenseCategory;
+    }    
 }

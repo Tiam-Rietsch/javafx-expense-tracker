@@ -26,7 +26,7 @@ public class IncomeRecordUpdateController {
 
     private IncomeRecordData incomeRecord = null;
 
-    public void updateIncome(ActionEvent event) {
+    public void updateExpense(ActionEvent event) {
         if (income_amt_tf.getText().isEmpty()) {
             Alert dialog = new Alert(AlertType.WARNING);
             dialog.setHeaderText("please fill all the required fields");
@@ -35,8 +35,8 @@ public class IncomeRecordUpdateController {
             String query = """
                     UPDATE IncomeRecord SET amount=%f, date_recorded="%s" WHERE id=%d
                     """.formatted(Double.parseDouble(income_amt_tf.getText()), DateManager.getCurrentDate(), incomeRecord.getId());
-
             con = Database.getConnection();
+        
             try {
                 statement = con.prepareStatement(query);
                 statement.execute();

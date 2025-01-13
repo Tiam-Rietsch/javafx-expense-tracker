@@ -27,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
@@ -68,6 +69,9 @@ public class IncomePaneController extends StackPane implements Initializable {
 
     @FXML
     private Button deleteRecordBtn;
+
+    @FXML
+    private Label streamTitle_label;
 
     // database tools
     private Connection con;
@@ -256,6 +260,7 @@ public class IncomePaneController extends StackPane implements Initializable {
     }
 
     private void fillIncomeRecordTable() {
+        streamTitle_label.setText(selectedCard.getIncomeStream().getName());
         ObservableList<IncomeRecordData> incomeRecordList = fetchIncomRecords();
         income_table.getItems().clear();
         
@@ -271,6 +276,7 @@ public class IncomePaneController extends StackPane implements Initializable {
         ObservableList<IncomeStreamData> incomeStreamList = fetchIncomStreams();
         // reset the income list
         income_stream_container.getChildren().clear();
+        income_table.getItems().clear();
 
         if (incomeStreamList.isEmpty()) {
             // if the list is empty show empty pane, otherwise add all income streams to ui
