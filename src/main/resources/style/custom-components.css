@@ -4,11 +4,13 @@
     -fx-border-width: 0;
     -fx-border-color: transparent;
     -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0.0, 0, 2);
 }
 
 .income-card:hover,
 .expense-card:hover {
-    -fx-background-color: #0000000c;
+    -fx-background-color: #00000016;
+    -fx-effect: none;
 }
 
 .income-card.selected,
@@ -16,7 +18,8 @@
     -fx-background-color: #0000000f;
     -fx-text-fill: white;
     -fx-border-width: 2px;
-    -fx-border-color: rgba(0, 0, 0, 0.095);
+    -fx-border-color: rgba(0, 0, 0, 0.186);
+    -fx-effect: none;
 }
 
 .amt-column {
@@ -31,13 +34,72 @@
 .floating-btn {
     -fx-background-color: #FF8225;
     -fx-background-radius: 10px;
-    -fx-effect: dropshadow(gaussian, white, 2, 0.5, 0, 1);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0.0, 0, 2);
 }
 
 .floating-btn:hover {
-    -fx-background-color: #FF8225;
+    -fx-background-color: #c86011;
     -fx-background-radius: 10px;
     -fx-effect: dropshadow(gaussian, white, 2, 0.5, 0, 1);
+}
+
+.floating-btn-secondary {
+    -fx-background-color: #b9b3ae;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0.0, 0, 2);
+}
+
+.floating-btn-danger {
+    -fx-background-color: #b9b3ae;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0.0, 0, 2);
+}
+
+.floating-btn-secondary:hover {
+    -fx-background-color: #173B45;
+    -fx-background-radius: 10px;
+}
+
+.floating-btn-danger:hover {
+    -fx-background-color: #B43F3F;
+    -fx-background-radius: 10px;
+}
+
+
+.card-edit-btn {
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-background-color: #173b4565;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0.0, 0, 2);
+}
+
+.card-edit-btn:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0.0, 0, 2);
+    -fx-background-color: linear-gradient(#1D4752, #173B45);
+    -fx-cursor: hand;
+}
+
+.card-edit-btn:pressed {
+    -fx-background-color: linear-gradient(#0D2328, #173B45);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 2, 0.0, 0, 1);
+}
+
+.card-del-btn {
+    -fx-background-color: #b43f3f64;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0.0, 0, 1);
+}
+
+.card-del-btn:hover {
+    -fx-background-color: linear-gradient(#C84545, #B43F3F);
+    -fx-cursor: hand;
+}
+
+.card-del-btn:pressed {
+    -fx-background-color: linear-gradient(#8B2F2F, #B43F3F);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 2, 0.0, 0, 1);
 }
 
 .color-selection {

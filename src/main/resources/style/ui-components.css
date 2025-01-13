@@ -39,9 +39,12 @@
     -fx-start-margin: 5px;
     -fx-end-margin: 5px;
 }
+.default-table .table-row-cell:hover {
+    -fx-background-color: #fceee383;
+}
 
 .default-table .table-row-cell:selected {
-    -fx-background-color: transparent;
+    -fx-background-color: #f4d5bd;
     -fx-text-fill: black;
 }
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="349.0" styleClass="form" stylesheets="@../style/addIncomeForm.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiam.controller.ExpenseCategoryInsertController">
+   <children>
+      <AnchorPane prefHeight="107.0" prefWidth="350.0" styleClass="form">
+         <children>
+            <TextField fx:id="expense_name_tf" layoutX="14.0" layoutY="14.0" prefHeight="32.0" prefWidth="235.0" promptText="Name the category" styleClass="input-field" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <ComboBox fx:id="colors_cb" layoutX="14.0" layoutY="53.0" prefHeight="30.0" prefWidth="158.0" styleClass="color-selection" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="10.0" />
+            <Button layoutX="273.0" layoutY="56.0" mnemonicParsing="false" onAction="#addIncomeStream" prefHeight="30.0" prefWidth="65.0" styleClass="primary-btn" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <Button layoutX="204.0" layoutY="56.0" mnemonicParsing="false" onAction="#closeForm" prefHeight="30.0" prefWidth="65.0" styleClass="danger-btn" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="80.0" />
+         </children>
+         <stylesheets>
+            <URL value="@../style/ui-components.css" />
+            <URL value="@../style/custom-components.css" />
+         </stylesheets>
+      </AnchorPane>
+   </children>
+</StackPane>

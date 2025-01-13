@@ -18,7 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
-public class AddExpenseCategoryForm implements Initializable {
+public class ExpenseCategoryInsertController implements Initializable {
 
     @FXML
     private ComboBox<Color> colors_cb;

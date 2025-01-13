@@ -13,7 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class AddIncomeForm {
+public class IncomeRecordInsertController {
 
     @FXML
     private TextField income_amt_tf;
@@ -32,8 +32,8 @@ public class AddIncomeForm {
             dialog.showAndWait();
         } else {
             String query = """
-                INSERT INTO IncomeRecord (amount, date_recorded, stream_id) VALUES (%f, "%s", %d)
-                """.formatted(Double.parseDouble(income_amt_tf.getText()), DateManager.getCurrentDate(), selectedIncomeId);
+                    INSERT INTO IncomeRecord (amount, date_recorded, stream_id) VALUES (%f, \"%s", %d)
+                    """.formatted(Double.parseDouble(income_amt_tf.getText()), DateManager.getCurrentDate(), selectedIncomeId);
 
             con = Database.getConnection();
             try {
@@ -51,6 +51,7 @@ public class AddIncomeForm {
         }
 
     }
+
 
     @FXML
     public void closeForm(ActionEvent event) {

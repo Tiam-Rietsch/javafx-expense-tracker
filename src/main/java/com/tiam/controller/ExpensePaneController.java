@@ -70,7 +70,7 @@ public class ExpensePaneController extends StackPane implements Initializable{
     @FXML
     public void addExpenseCategory(ActionEvent event) throws IOException {
         Stage form = new Stage();
-        Parent formRoot = FXMLLoader.load(getClass().getResource("/view/add-expense-category-form.fxml"));
+        Parent formRoot = FXMLLoader.load(getClass().getResource("/view/expense-category-insert-form.fxml"));
         Scene scene = new Scene(formRoot);
 
         form.setTitle("New expense category");
@@ -88,7 +88,7 @@ public class ExpensePaneController extends StackPane implements Initializable{
     @FXML 
     public void addExpense(ActionEvent event) throws IOException{
         Stage form = new Stage();
-        Parent formRoot = FXMLLoader.load(getClass().getResource("/view/add-expense-form.fxml"));
+        Parent formRoot = FXMLLoader.load(getClass().getResource("/view/expense-record-insert-form.fxml"));
         Scene scene = new Scene(formRoot);
 
         form.setTitle("New expense category");

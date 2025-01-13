@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
-public class IncomeRecord {
+public class IncomeRecordData {
     private final ObjectProperty<Integer> idProp = new SimpleObjectProperty<>();
     private final ObjectProperty<Double> amountProp = new SimpleObjectProperty<>();
     private final ObjectProperty<String> dateProp = new SimpleObjectProperty<>();

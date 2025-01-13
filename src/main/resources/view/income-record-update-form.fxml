@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="349.0" styleClass="form" stylesheets="@../style/ui-components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiam.controller.AddIncomeForm">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="349.0" styleClass="form" stylesheets="@../style/ui-components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiam.controller.IncomeRecordUpdateController">
    <children>
       <AnchorPane prefHeight="107.0" prefWidth="350.0" styleClass="form">
          <children>
             <TextField fx:id="income_amt_tf" layoutX="57.599999999999994" layoutY="14.0" prefHeight="32.0" prefWidth="274.0" promptText="Enter the ammount perceived" styleClass="input-field" AnchorPane.leftAnchor="57.0" AnchorPane.rightAnchor="10.0" />
-            <Button layoutX="273.0" layoutY="56.0" mnemonicParsing="false" onAction="#addIncome" prefHeight="30.0" prefWidth="65.0" styleClass="primary-btn" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <Button layoutX="273.0" layoutY="56.0" mnemonicParsing="false" onAction="#updateIncome" prefHeight="30.0" prefWidth="65.0" styleClass="primary-btn" text="Update" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
             <Button layoutX="204.0" layoutY="56.0" mnemonicParsing="false" onAction="#closeForm" prefHeight="30.0" prefWidth="65.0" styleClass="danger-btn" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="80.0" />
             <Label layoutX="12.0" layoutY="14.0" prefHeight="32.0" prefWidth="39.0" text="XAF" AnchorPane.leftAnchor="11.0">
                <font>

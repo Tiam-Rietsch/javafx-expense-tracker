@@ -19,7 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class AddIncomeStreamForm implements Initializable {
+public class IncomeStreamInsertController implements Initializable {
 
     @FXML
     private ComboBox<Color> colors_cb;
