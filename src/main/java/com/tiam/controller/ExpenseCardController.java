@@ -16,7 +16,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -29,7 +28,7 @@ import javafx.stage.StageStyle;
 public class ExpenseCardController extends AnchorPane {
 
     @FXML
-    private Label amount_budjet_label;
+    private Label amount_budget_label;
 
     @FXML
     private Rectangle expense_rectangle;

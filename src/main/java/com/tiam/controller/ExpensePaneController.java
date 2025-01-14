@@ -11,11 +11,9 @@ import java.util.ResourceBundle;
 
 import com.tiam.model.ExpenseCategoryData;
 import com.tiam.model.ExpenseRecordData;
-import com.tiam.model.IncomeRecordData;
 import com.tiam.service.Color;
 import com.tiam.service.Database;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -98,17 +96,17 @@ public class ExpensePaneController extends StackPane implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         int msg_container_height = 130;
         int msg_container_width = 470;
-        empty_expense_pane.heightProperty().addListener((obs, oldVal, newVal) -> {
+        empty_expense_pane.heightProperty().addListener((_, _, newVal) -> {
             msg_container.layoutYProperty().set((newVal.doubleValue() - msg_container_height) / 2);
         });
-        empty_expense_pane.widthProperty().addListener((obs, oldVal, newVal) -> {
+        empty_expense_pane.widthProperty().addListener((_, _, newVal) -> {
             msg_container.layoutXProperty().set((newVal.doubleValue() - msg_container_width) / 2);
         });
 
         fillExpenseCategoryList();
     }
 
-    /** ---------------------- Event handlers  */
+    /** -------------------------------------------------------------------- Event handlers  */
 
     @FXML
     public void addExpenseCategory(ActionEvent event) throws IOException {
@@ -151,6 +149,7 @@ public class ExpensePaneController extends StackPane implements Initializable{
         }
     }
 
+    @FXML
     public void editExpenseRecord(ActionEvent event) throws IOException {
         ExpenseRecordData selectedExpenseRecord = expense_table.getSelectionModel().getSelectedItem(); 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/expense-record-update-form.fxml"));
@@ -167,6 +166,7 @@ public class ExpensePaneController extends StackPane implements Initializable{
 
     }
 
+    @FXML
     public void deleteExpenseRecord(ActionEvent event) throws IOException {
      Alert dialog = new Alert(AlertType.CONFIRMATION);
         dialog.setContentText("Are your sure you want to delete the selected record ?");
@@ -190,9 +190,9 @@ public class ExpensePaneController extends StackPane implements Initializable{
     }
 
     @FXML
-    public void createBudjet(ActionEvent event) throws IOException {
+    public void createBudget(ActionEvent event) throws IOException {
         Stage form = new Stage();
-        Parent formRoot = FXMLLoader.load(getClass().getResource("/view/budjet-form.fxml"));
+        Parent formRoot = FXMLLoader.load(getClass().getResource("/view/budget-form.fxml"));
         Scene scene = new Scene(formRoot);
 
         form.setTitle("New expense category");
@@ -218,6 +218,7 @@ public class ExpensePaneController extends StackPane implements Initializable{
         }
     }
 
+    @FXML
     public void showRecordActionButtons() {
         ExpenseRecordData selectedRecord = expense_table.getSelectionModel().getSelectedItem();
         if (selectedRecord != null) {
@@ -228,7 +229,9 @@ public class ExpensePaneController extends StackPane implements Initializable{
             deleteRecordBtn.setVisible(false);
         }
     }
-    /** ---------------------- Utilities */
+
+
+    /** ----------------------------------------------------------------------------------- Utilities */
 
     public ObservableList<ExpenseCategoryData> fetchExpenseCategories() {
         ObservableList<ExpenseCategoryData> list = FXCollections.observableArrayList();
@@ -318,19 +321,6 @@ public class ExpensePaneController extends StackPane implements Initializable{
             empty_expense_pane.setVisible(false);
             expense_pane.setVisible(true);
         }
-    }
-
-    public void testCard() {
-        ExpenseCategoryData expenseCategory = new ExpenseCategoryData();
-        expenseCategory.setColor(Color.colors[0]);
-        expenseCategory.setName("Savings");
-        ExpenseCardController card = new ExpenseCardController(expenseCategory);
-        card.onMouseClickedProperty().set(event -> handleExpenseCardClick(event));
-        card.prefWidthProperty().bind(expense_category_container.prefWidthProperty());
-        expense_category_container.getChildren().add(card);
-        // for (Color color : Color.colors) {
-
-        // }
     }
 
 }

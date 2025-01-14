@@ -39,6 +39,8 @@ public class ExpenseCategoryUpdateController implements Initializable {
         colors_cb.setButtonCell(new ColorListCell());
     }
     
+    // ---------------------------------------------------------------- Event Handlers
+
     public void updateExpenseCategory(ActionEvent event) {
         if (!expense_name_tf.getText().isEmpty() || colors_cb.getValue() != null) {
             String query = """
@@ -69,6 +71,8 @@ public class ExpenseCategoryUpdateController implements Initializable {
     public void closeForm(ActionEvent event) {
         expense_name_tf.getScene().getWindow().hide();
     }
+
+    // ----------------------------------------------------------------- Utilities
 
     public void setExpenseCategory(ExpenseCategoryData expenseCategory) {
         this.expenseCategory = expenseCategory;

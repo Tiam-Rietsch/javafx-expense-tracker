@@ -4,10 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.tiam.model.ExpenseCategoryData;
 import com.tiam.model.ExpenseRecordData;
 import com.tiam.service.Database;
-import com.tiam.service.DateManager;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +24,8 @@ public class ExpenseRecordUpdateController {
 
     private Connection con;
     private PreparedStatement statement;
+
+    // ---------------------------------------------------------------------- Event Hanlders
 
     public void updateExpenseRecord(ActionEvent event) {
         if (expense_amt_tf.getText().isEmpty() || expense_reason_tf.getText().isEmpty()) {
@@ -57,6 +57,8 @@ public class ExpenseRecordUpdateController {
         expense_amt_tf.getScene().getWindow().hide();
     }
 
+    // -------------------------------------------------------------------- utilities
+    
     public void setExpenseCategory(ExpenseRecordData expenseRecord) {
         this.expenseRecord = expenseRecord;
         expense_amt_tf.setText(expenseRecord.getAmount().toString());

@@ -13,16 +13,11 @@ import com.tiam.utils.ColorListCell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
+
 
 public class ExpenseCategoryInsertController implements Initializable {
 
@@ -39,10 +34,11 @@ public class ExpenseCategoryInsertController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         colors_cb.getItems().addAll(Color.colors);
 
-        colors_cb.setCellFactory(listview -> new ColorListCell());
+        colors_cb.setCellFactory(_ -> new ColorListCell());
         colors_cb.setButtonCell(new ColorListCell());
     }
     
+    // --------------------------------------------------------------- Event Handlers
     public void addExpenseCategory(ActionEvent event) {
         if (!expense_name_tf.getText().isEmpty() || colors_cb.getValue() != null) {
             String query = """

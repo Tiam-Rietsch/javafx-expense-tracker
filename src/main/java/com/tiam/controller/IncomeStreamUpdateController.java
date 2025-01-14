@@ -3,7 +3,6 @@ package com.tiam.controller;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -28,11 +27,22 @@ public class IncomeStreamUpdateController implements Initializable {
     @FXML
     private TextField income_name_tf;
 
-    // database tools
     private Connection con;
     private PreparedStatement statement;
 
     private IncomeStreamData incomeStream;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        colors_cb.getItems().addAll(Color.colors);
+
+        colors_cb.setCellFactory(_ -> new ColorListCell());
+        colors_cb.setButtonCell(new ColorListCell());
+
+        colors_cb.getSelectionModel().select(0);
+    }
+
+    // --------------------------------------------------------------- Event Handlers
 
     public void updateIncomeStream(ActionEvent event) {
 
@@ -67,15 +77,8 @@ public class IncomeStreamUpdateController implements Initializable {
         income_name_tf.getScene().getWindow().hide();
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        colors_cb.getItems().addAll(Color.colors);
 
-        colors_cb.setCellFactory(listView -> new ColorListCell());
-        colors_cb.setButtonCell(new ColorListCell());
-
-        colors_cb.getSelectionModel().select(0);
-    }
+    // ---------------------------------------------------------------------------- Utilities
 
     public void setIncomeStream(IncomeStreamData incomeStream) {
         this.incomeStream = incomeStream;

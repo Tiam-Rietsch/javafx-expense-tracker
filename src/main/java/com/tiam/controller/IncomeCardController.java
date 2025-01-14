@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Optional;
 
 import com.tiam.model.IncomeStreamData;
@@ -65,17 +64,6 @@ public class IncomeCardController extends AnchorPane {
 
     }
 
-    public int getIncomeId() {
-        return incomeStream.getId();
-    }
-
-    public IncomeStreamData getIncomeStream() {
-        return incomeStream;
-    }
-
-    public void setUpdateRunnable(Runnable runnable) {
-        updateIncomeStreamList = runnable;
-    }
 
     // ----------------------------------------------------- Event handler
     public void editIncomeStream(ActionEvent event) throws IOException {
@@ -116,7 +104,6 @@ public class IncomeCardController extends AnchorPane {
 
     }
 
-
     public void showActionButtons(MouseEvent event) {
         
         editIncomeStream_btn.setVisible(true);
@@ -126,6 +113,20 @@ public class IncomeCardController extends AnchorPane {
     public void hideActionButtons(MouseEvent event) {
         editIncomeStream_btn.setVisible(false);
         deleteIncomeStream_btn.setVisible(false);
+    }
+
+    // --------------------------------------------------------------------- Utilities
+    
+    public int getIncomeId() {
+        return incomeStream.getId();
+    }
+
+    public IncomeStreamData getIncomeStream() {
+        return incomeStream;
+    }
+
+    public void setUpdateRunnable(Runnable runnable) {
+        updateIncomeStreamList = runnable;
     }
 
 

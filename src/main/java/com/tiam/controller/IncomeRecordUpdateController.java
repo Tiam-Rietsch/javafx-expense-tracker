@@ -26,6 +26,8 @@ public class IncomeRecordUpdateController {
 
     private IncomeRecordData incomeRecord = null;
 
+    // ------------------------------------------------------- Event Handlers
+
     public void updateExpense(ActionEvent event) {
         if (income_amt_tf.getText().isEmpty()) {
             Alert dialog = new Alert(AlertType.WARNING);
@@ -53,12 +55,13 @@ public class IncomeRecordUpdateController {
 
     }
 
-
     @FXML
     public void closeForm(ActionEvent event) {
         income_amt_tf.getScene().getWindow().hide();
     }
 
+
+    // -------------------------------------------------------------------- Utilities
     public void setSelectedIncomeRecord(IncomeRecordData incomeRecord) {
          this.incomeRecord = incomeRecord;
          income_amt_tf.setText(incomeRecord.getAmount().toString());

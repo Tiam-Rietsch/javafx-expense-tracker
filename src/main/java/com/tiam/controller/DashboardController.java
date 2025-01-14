@@ -16,16 +16,16 @@ import javafx.scene.layout.AnchorPane;
 public class DashboardController implements Initializable {
 
     @FXML
-    private AnchorPane budjetOverviewCard;
+    private AnchorPane budgetOverviewCard;
 
     @FXML
-    private StackedBarChart<String, Number> expenseBudjetBarChart;
+    private StackedBarChart<String, Number> expenseBudgetBarChart;
 
     @FXML
-    private CategoryAxis expenseBudjetCategoryAxis;
+    private CategoryAxis expenseBudgetCategoryAxis;
 
     @FXML
-    private NumberAxis expenseBudjetNumberAxis;
+    private NumberAxis expenseBudgetNumberAxis;
 
     @FXML
     private AnchorPane expenseOverviewCard;
@@ -64,7 +64,7 @@ public class DashboardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         sampleIncomeExpenseLineChart();
         sampleTrendLineChart();
-        sampleExpenseBudjetBarChart();
+        sampleExpenseBudgetBarChart();
         sampleExpenseChart();
     }
 
@@ -106,14 +106,14 @@ public class DashboardController implements Initializable {
         }
     }
 
-    private void sampleExpenseBudjetBarChart() {
-        expenseBudjetBarChart.setTitle("Stacked Bar Chart");
+    private void sampleExpenseBudgetBarChart() {
+        expenseBudgetBarChart.setTitle("Stacked Bar Chart");
 
         // Create 2 series
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
         XYChart.Series<String, Number> series2 = new XYChart.Series<>();
-        series1.setName("Budjet Spent");
-        series2.setName("Budjet Left");
+        series1.setName("Budget Spent");
+        series2.setName("Budget Left");
 
         String[] categories = {"Food", "Transportation", "Entertainment", "Bills", "Shopping"};
         
@@ -125,8 +125,8 @@ public class DashboardController implements Initializable {
             series2.getData().add(new XYChart.Data<>(category, randomValue2));
         }
 
-        expenseBudjetBarChart.getData().add(series1);
-        expenseBudjetBarChart.getData().add(series2);
+        expenseBudgetBarChart.getData().add(series1);
+        expenseBudgetBarChart.getData().add(series2);
 
     }
 

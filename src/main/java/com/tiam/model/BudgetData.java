@@ -14,7 +14,7 @@ import javafx.beans.property.SimpleObjectProperty;
 public class BudgetData {
 
     /**
-     * The expense category of the budjet
+     * The expense category of the budget
      * 
      * @see ExpenseCategoryData
      */

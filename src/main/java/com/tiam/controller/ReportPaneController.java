@@ -38,10 +38,10 @@ public class ReportPaneController extends StackPane implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         int msg_container_height = 130;
         int msg_container_width = 470;
-        empty_report_pane.heightProperty().addListener((obs, oldVal, newVal) -> {
+        empty_report_pane.heightProperty().addListener((_, _, newVal) -> {
             msg_container.layoutYProperty().set((newVal.doubleValue() - msg_container_height) / 2);
         });
-        empty_report_pane.widthProperty().addListener((obs, oldVal, newVal) -> {
+        empty_report_pane.widthProperty().addListener((_, _, newVal) -> {
             msg_container.layoutXProperty().set((newVal.doubleValue() - msg_container_width) / 2);
         });
 

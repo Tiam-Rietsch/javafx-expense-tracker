@@ -51,7 +51,7 @@
                </children></AnchorPane>
             <AnchorPane fx:id="savingOverviewCard" layoutX="428.0" layoutY="10.0" prefHeight="55.0" prefWidth="200.0" AnchorPane.rightAnchor="5.0">
                <children>
-                  <Label layoutX="7.0" layoutY="5.0" text="remaining budjet" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
+                  <Label layoutX="7.0" layoutY="5.0" text="remaining budget" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -66,7 +66,7 @@
                   <String fx:value="dashboard-card" />
                   <String fx:value="coralpink-gradient" />
                </styleClass></AnchorPane>
-            <AnchorPane fx:id="budjetOverviewCard" layoutX="427.0" layoutY="74.0" prefHeight="55.0" prefWidth="200.0" AnchorPane.rightAnchor="5.0">
+            <AnchorPane fx:id="budgetOverviewCard" layoutX="427.0" layoutY="74.0" prefHeight="55.0" prefWidth="200.0" AnchorPane.rightAnchor="5.0">
                <children>
                   <Label layoutX="16.0" layoutY="7.0" text="savings" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
                      <font>
@@ -115,12 +115,12 @@
                </children></AnchorPane>
             <AnchorPane layoutX="14.0" layoutY="326.0" prefHeight="338.0" prefWidth="385.0" styleClass="dashboard-card" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="10.0">
                <children>
-                  <StackedBarChart fx:id="expenseBudjetBarChart" layoutX="-112.0" layoutY="14.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                  <StackedBarChart fx:id="expenseBudgetBarChart" layoutX="-112.0" layoutY="14.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                     <xAxis>
-                      <CategoryAxis fx:id="expenseBudjetCategoryAxis" side="BOTTOM" />
+                      <CategoryAxis fx:id="expenseBudgetCategoryAxis" side="BOTTOM" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis fx:id="expenseBudjetNumberAxis" side="LEFT" />
+                      <NumberAxis fx:id="expenseBudgetNumberAxis" side="LEFT" />
                     </yAxis>
                   </StackedBarChart>
                </children></AnchorPane>

@@ -1,6 +1,5 @@
 package com.tiam.utils;
 
-import com.tiam.model.IncomeStreamData;
 import com.tiam.service.Color;
 
 import javafx.geometry.Pos;

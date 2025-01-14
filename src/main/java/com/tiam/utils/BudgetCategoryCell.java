@@ -1,6 +1,6 @@
 package com.tiam.utils;
 
-import com.tiam.model.BudjetData;
+import com.tiam.model.BudgetData;
 import com.tiam.model.ExpenseCategoryData;
 
 import javafx.geometry.Pos;
@@ -10,12 +10,24 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
-public class BudjetCategoryCell extends TableCell<BudjetData, ExpenseCategoryData> {
+/**
+ * Custom table cell for properly displaying expensecategories on the budjet table
+ * 
+ * @author Tiam Rietsch
+ * @see ExpenseCategoryData
+ */
+public class BudgetCategoryCell extends TableCell<BudgetData, ExpenseCategoryData> {
     private Circle circle;
     private Label label;
     private HBox hBox;
 
-    public BudjetCategoryCell() {
+    /**
+     * Initializes a {@code BudgetCategoryCell}
+     * 
+     * <p>The constructor creates a {@code Circle} showing the color of the expense category as well as a
+     * {@code Label} showing the name of the expense category, all wrapped inside an {@code Hbox}</p>
+     */
+    public BudgetCategoryCell() {
         circle = new Circle(10);
 
         label = new Label();

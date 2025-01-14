@@ -13,7 +13,6 @@ import com.tiam.model.IncomeRecordData;
 import com.tiam.model.IncomeStreamData;
 import com.tiam.service.Color;
 import com.tiam.service.Database;
-import com.tiam.service.DateManager;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -212,7 +211,7 @@ public class IncomePaneController extends StackPane implements Initializable {
     }
 
 
-    /** --------------------------------------- utilities */
+    /** ---------------------------------------------------------------------- utilities */
 
     private ObservableList<IncomeStreamData> fetchIncomStreams() {
         String query = "SELECT * FROM IncomeStream";
@@ -272,18 +271,14 @@ public class IncomePaneController extends StackPane implements Initializable {
     }
 
     private void fillIncomeStreamList() {
-        // get the list of income from the datbase
         ObservableList<IncomeStreamData> incomeStreamList = fetchIncomStreams();
-        // reset the income list
         income_stream_container.getChildren().clear();
         income_table.getItems().clear();
 
         if (incomeStreamList.isEmpty()) {
-            // if the list is empty show empty pane, otherwise add all income streams to ui
             empty_income_pane.setVisible(true);
             income_pane.setVisible(false);
         } else {
-            // create an income card for each income stream and add it to income_stream_container
             for (IncomeStreamData data : incomeStreamList) {
                 IncomeCardController incomeCard = new IncomeCardController(data);
                 incomeCard.setUpdateRunnable(this::fillIncomeStreamList);
@@ -292,24 +287,8 @@ public class IncomePaneController extends StackPane implements Initializable {
                 incomeCard.onMouseClickedProperty().set(event -> handleIncomeStreamSelect(event));
             }
 
-            // show the income pane
             empty_income_pane.setVisible(false);
             income_pane.setVisible(true);
         }
     }
-
-    // public void testCards() {
-    //     for (Color color : Color.colors) {
-    //         IncomeStreamData incomeStream = new IncomeStreamData();
-    //         incomeStream.setColor(color);
-    //         incomeStream.setName("Job");
-    //         IncomeCardController incomeCard = new IncomeCardController(incomeStream);
-    //         income_stream_container.getChildren().add(incomeCard);
-    //         incomeCard.prefWidthProperty().bind(income_stream_container.prefWidthProperty());
-    //         incomeCard.onMouseClickedProperty().set(event -> handleIncomeStreamSelect(event));
-    //     }
-    // }
-
-
-
 }

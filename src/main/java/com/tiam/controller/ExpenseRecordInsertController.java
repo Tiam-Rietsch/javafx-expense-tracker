@@ -25,7 +25,8 @@ public class ExpenseRecordInsertController {
     private PreparedStatement statement;
     private int selectedExpenseId;
 
-    
+    // ----------------------------------------------------------------------- Event Handlers
+
     public void addExpenseRecord(ActionEvent event) {
         if (expense_amt_tf.getText().isEmpty() || expense_reason_tf.getText().isEmpty()) {
             Alert dialog = new Alert(AlertType.WARNING);
@@ -56,6 +57,8 @@ public class ExpenseRecordInsertController {
     public void closeForm(ActionEvent event) {
         expense_amt_tf.getScene().getWindow().hide();
     }
+
+    // --------------------------------------------------------------------- Utilities
 
     public void setSelectedExpenseId(int id) {
         selectedExpenseId = id;

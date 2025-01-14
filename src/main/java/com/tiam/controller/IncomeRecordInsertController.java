@@ -25,6 +25,9 @@ public class IncomeRecordInsertController {
 
     private Integer selectedIncomeId = null;
 
+    
+    // ----------------------------------------------------------- Event Handlers
+    
     public void addIncome(ActionEvent event) {
         if (income_amt_tf.getText().isEmpty()) {
             Alert dialog = new Alert(AlertType.WARNING);
@@ -51,7 +54,6 @@ public class IncomeRecordInsertController {
         }
 
     }
-
 
     @FXML
     public void closeForm(ActionEvent event) {

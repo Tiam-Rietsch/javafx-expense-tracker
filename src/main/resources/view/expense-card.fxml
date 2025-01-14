@@ -15,7 +15,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="amount_budjet_label" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="22.0" layoutY="27.0" mouseTransparent="true" prefHeight="27.0" prefWidth="222.0" text="15 000 XAF / 30 000 XAF" textAlignment="JUSTIFY" textFill="#a4a4a4" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="25.0">
+      <Label fx:id="amount_budget_label" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="22.0" layoutY="27.0" mouseTransparent="true" prefHeight="27.0" prefWidth="222.0" text="15 000 XAF / 30 000 XAF" textAlignment="JUSTIFY" textFill="#a4a4a4" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="25.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

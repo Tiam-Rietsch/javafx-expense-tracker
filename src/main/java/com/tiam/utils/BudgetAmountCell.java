@@ -1,7 +1,7 @@
 package com.tiam.utils;
 
 
-import com.tiam.model.BudjetData;
+import com.tiam.model.BudgetData;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -12,32 +12,25 @@ import javafx.scene.paint.Paint;
 
 
 /**
- * Custom TableCell for displaying and updating budjet amount in the budjet tableview
+ * Custom TableCell for displaying and updating budget amount in the budget tableview
  * 
- * <p>This class expends {@link TableCell} to provide functionality of rendering and editing
- * {@code Double} values corresponding to the amount, associated with the {@link BudjetData} object
- * of the tablerow</p>
- * 
- * @param <BudjetData> type of tablerow data model
- * @param <Double> budjet amount
- * 
- * @see TableCell
- * @see TableView
+ * @author Tiam Rietsch
+ * @see BudjetData
  */
-public class BudjetAmountCell extends TableCell<BudjetData, Double> {
+public class BudgetAmountCell extends TableCell<BudgetData, Double> {
     private Spinner<Double> spinner;
     private Label label;
 
     /**
-     * Initialized a BudjetAmountCell
+     * Initialized a BudgetAmountCell
      * 
      * <p>by default the constructor creates a {@code Spinner} object for editing and a
      * {@code Label} object for display. The {@code amountProperty()} of the cell's model then listens to the changes
      * the the spinner's {@code valueProperty} to update it's content during editing</p>
      * 
-     * @see BudjetData
+     * @see BudgetData
      */
-    public BudjetAmountCell() {
+    public BudgetAmountCell() {
         spinner = new Spinner<>(0, Double.MAX_VALUE, 1);
         spinner.setEditable(true);
         spinner.getStyleClass().add("default-spinner");
@@ -46,9 +39,9 @@ public class BudjetAmountCell extends TableCell<BudjetData, Double> {
         setAlignment(Pos.CENTER_LEFT);
 
         // bind the observable amount to the spinner
-        spinner.valueProperty().addListener((obs, oldVal, newVal) -> {
+        spinner.valueProperty().addListener((_, _, newVal) -> {
             if (getTableRow() != null && getTableRow().getItem() != null) {
-                BudjetData budgetData = getTableRow().getItem();
+                BudgetData budgetData = getTableRow().getItem();
                 budgetData.setAmount(newVal.doubleValue());
             }
         });
@@ -75,10 +68,10 @@ public class BudjetAmountCell extends TableCell<BudjetData, Double> {
         if (empty || amount == null) {
             setGraphic(null);
         } else {
-            BudjetData budjet = getTableRow().getItem();
+            BudgetData budget = getTableRow().getItem();
 
-            if (budjet != null) {
-                label.textProperty().bind(budjet.amountProperty().asString());
+            if (budget != null) {
+                label.textProperty().bind(budget.amountProperty().asString());
             }
             setGraphic(isEditing() ? spinner : label);
         }
