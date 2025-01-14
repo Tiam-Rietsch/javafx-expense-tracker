@@ -250,7 +250,7 @@ public class IncomePaneController extends StackPane implements Initializable {
                 IncomeRecordData record = new IncomeRecordData();
                 record.setAmount(resultSet.getDouble("amount"));
                 record.setId(resultSet.getInt("id"));
-                record.setLocalDate(resultSet.getString("date_recorded"));
+                record.setDate(resultSet.getString("date_recorded"));
                 incomeRecordList.add(record);
             }
         } catch (SQLException e) {
