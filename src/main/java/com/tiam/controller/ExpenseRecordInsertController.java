@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.tiam.service.Accounts;
 import com.tiam.service.Database;
 import com.tiam.service.DateManager;
 
@@ -34,13 +35,15 @@ public class ExpenseRecordInsertController {
             dialog.showAndWait();
         } else {
             String query = """
-                    INSERT INTO ExpenseRecord (reason, amount, date_spent, category_id)
-                    VALUES ("%s", %f, "%s", %d)
+                    INSERT INTO ExpenseRecord (reason, amount, date_spent, category_id) VALUES ("%s", %f, "%s", %d)
                     """.formatted(expense_reason_tf.getText(), Double.parseDouble(expense_amt_tf.getText()), DateManager.getCurrentDate(), selectedExpenseId);
             con = Database.getConnection();
             try {
                 statement = con.prepareStatement(query);
-                statement.execute();
+                System.out.println(query);
+                statement.executeUpdate();
+                
+                Accounts.resetAccountOnExpenseInsert(Double.parseDouble(expense_amt_tf.getText()));
 
                 Alert dialog = new Alert(AlertType.INFORMATION);
                 dialog.setContentText("Expense recorded successfully");
@@ -49,6 +52,8 @@ public class ExpenseRecordInsertController {
                 expense_amt_tf.getScene().getWindow().hide();
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                Database.clcoseEverything(con, statement, null);
             }
         }
     }

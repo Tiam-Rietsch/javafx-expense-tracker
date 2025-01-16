@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.tiam.service.Accounts;
 import com.tiam.service.Database;
 import com.tiam.service.DateManager;
 
@@ -42,6 +43,8 @@ public class IncomeRecordInsertController {
             try {
                 statement = con.prepareStatement(query);
                 statement.execute();
+
+                Accounts.resetAccountOnIncomeInsert(Double.parseDouble(income_amt_tf.getText()));
 
                 Alert dialog = new Alert(AlertType.INFORMATION);
                 dialog.setContentText("New income recorded");

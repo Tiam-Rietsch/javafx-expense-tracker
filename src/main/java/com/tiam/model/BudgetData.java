@@ -25,6 +25,8 @@ public class BudgetData {
      */
     private final SimpleObjectProperty<Double> amountProp = new SimpleObjectProperty<>();
 
+    private final ObjectProperty<Integer> idProp = new SimpleObjectProperty<>();
+
 
     /**
      * Constructs a new {@code BudgetData} with the specified expense category and budget amount
@@ -35,6 +37,18 @@ public class BudgetData {
     public BudgetData(ExpenseCategoryData expense, Double amount) {
         expenseProp.set(expense);
         amountProp.set(amount);
+    }
+
+    public Integer getId() {
+        return idProp.get();
+    }
+
+    public void setId(int id) {
+        idProp.set(id);
+    }
+
+    public ObjectProperty<Integer> idProperty() {
+        return idProp;
     }
 
     /**

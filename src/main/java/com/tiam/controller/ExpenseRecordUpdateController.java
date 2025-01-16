@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.tiam.model.ExpenseRecordData;
+import com.tiam.service.Accounts;
 import com.tiam.service.Database;
 
 import javafx.event.ActionEvent;
@@ -40,6 +41,8 @@ public class ExpenseRecordUpdateController {
             try {
                 statement = con.prepareStatement(query);
                 statement.execute();
+
+                Accounts.resetAccountOnExpenseUpdate(expenseRecord.getAmount(), Double.parseDouble(expense_amt_tf.getText()));
 
                 Alert dialog = new Alert(AlertType.INFORMATION);
                 dialog.setContentText("Expense successfully updated");

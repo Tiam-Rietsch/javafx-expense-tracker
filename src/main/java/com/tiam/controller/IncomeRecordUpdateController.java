@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.tiam.model.IncomeRecordData;
+import com.tiam.service.Accounts;
 import com.tiam.service.Database;
 import com.tiam.service.DateManager;
 
@@ -28,7 +29,7 @@ public class IncomeRecordUpdateController {
 
     // ------------------------------------------------------- Event Handlers
 
-    public void updateExpense(ActionEvent event) {
+    public void updateIncome(ActionEvent event) {
         if (income_amt_tf.getText().isEmpty()) {
             Alert dialog = new Alert(AlertType.WARNING);
             dialog.setHeaderText("please fill all the required fields");
@@ -42,6 +43,8 @@ public class IncomeRecordUpdateController {
             try {
                 statement = con.prepareStatement(query);
                 statement.execute();
+
+                Accounts.resetAccountOnIncomeUpdate(incomeRecord.getAmount(), Double.parseDouble(income_amt_tf.getText()));
 
                 Alert dialog = new Alert(AlertType.INFORMATION);
                 dialog.setContentText("New income recorded");

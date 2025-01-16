@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 
 import com.tiam.model.IncomeStreamData;
+import com.tiam.service.Accounts;
 import com.tiam.service.Database;
 
 import javafx.event.ActionEvent;
@@ -87,14 +90,19 @@ public class IncomeCardController extends AnchorPane {
         dialog.getButtonTypes().setAll(ButtonType.YES, ButtonType.CANCEL);
         Optional<ButtonType> result = dialog.showAndWait();
 
+        HashMap<Integer, Double> income_map = Database.getIncomeIdsForStream(incomeStream.getId());
+
         if (result.isPresent() && result.get() == ButtonType.YES) {
             String query = "DELETE FROM IncomeStream WHERE id=%d".formatted(incomeStream.getId());
             con = Database.getConnection();
 
             try {
                 statement = con.prepareStatement(query);
-                statement.execute();
+                statement.executeUpdate();
 
+                for (Integer id : income_map.keySet()) {
+                    Accounts.resetAccountsOnIncomeDelete(income_map.get(id));
+                }
                 updateIncomeStreamList.run();
 
             } catch (SQLException e) {

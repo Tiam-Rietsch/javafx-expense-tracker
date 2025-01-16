@@ -1,21 +1,35 @@
 package com.tiam.controller;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 
 import com.tiam.model.BudgetData;
 import com.tiam.model.ExpenseCategoryData;
+import com.tiam.service.Accounts;
 import com.tiam.service.Color;
+import com.tiam.service.Database;
+import com.tiam.service.DateManager;
 import com.tiam.utils.BudgetAmountCell;
 import com.tiam.utils.BudgetCategoryCell;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart.Data;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 
 
 /**
@@ -47,19 +61,94 @@ public class BudgetFormController implements Initializable {
     @FXML
     private TableColumn<BudgetData, ExpenseCategoryData> category_col;
 
+    /**
+     * The label that specifies the date from which the budget is applicable
+     */
+    @FXML
+    private Label startDate_label;
+
+    /**
+     * The label that displays the date till which the budget is applicable
+     */
+    @FXML
+    private Label endDate_label;
+
+    // database tools
+    private Connection con;
+    private PreparedStatement statement;
+    private ResultSet resultSet;
+
+    private HashMap<Integer, Double> oldBudget_map = new HashMap<>();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        fillBudgetTable();
 
-        ObservableList<BudgetData> budgets = FXCollections.observableArrayList();
-        for (Color color : Color.colors) {
-            ExpenseCategoryData expense = new ExpenseCategoryData();
-            expense.setColor(color);
-            expense.setName("Category");
-            BudgetData budget = new BudgetData(expense, 0.0);
-            budgets.add(budget);
+        startDate_label.setText(DateManager.parseString(LocalDate.now().withDayOfMonth(1)));
+        endDate_label.setText(DateManager.parseString(LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth())));
+    }   
+
+    // ----------------------------------------------------------------------- Event Handlers
+    public void createBudget(ActionEvent event) {
+        con = Database.getConnection();
+
+        for (BudgetData budget : budget_table.getItems()) {
+            String query = "UPDATE Budget SET amount=%f WHERE id=%d".formatted(budget.getAmount(), budget.getId());
+            System.out.println(query);
+            try {
+                statement = con.prepareStatement(query);
+                statement.execute();
+
+                Accounts.resetAccountOnBudgetUpdate(budget.getAmount() - oldBudget_map.get(budget.getId()));
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
-        budget_table.setItems(budgets);
+        Alert dialog = new Alert(AlertType.INFORMATION);
+        dialog.setContentText("Budget successfully created");
+        dialog.show();
+        Database.clcoseEverything(con, statement, resultSet);
+        budget_table.getScene().getWindow().hide();
+      
+    }
+
+
+    // ----------------------------------------------------------------------- Utilities
+    public ObservableList<BudgetData> fetchBudgetData() {
+        ObservableList<BudgetData> list = FXCollections.observableArrayList();;
+        String query = """
+                SELECT Budget.id, Budget.amount, ExpenseCategory.name, ExpenseCategory.color_name, Budget.category_id
+                FROM Budget
+                INNER JOIN ExpenseCategory ON ExpenseCategory.id = Budget.category_id;
+                """;
+        con = Database.getConnection();
+
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                ExpenseCategoryData data = new ExpenseCategoryData();
+                data.setColor(Color.getColorFromName(resultSet.getString("color_name")));
+                data.setId(resultSet.getInt("category_id"));;
+                data.setName(resultSet.getString("name"));
+
+                BudgetData budget = new BudgetData(data, resultSet.getDouble("amount"));
+                budget.setId(resultSet.getInt("id"));
+                list.add(budget);
+                oldBudget_map.put(budget.getId(), budget.getAmount());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public void fillBudgetTable() {
+        ObservableList<BudgetData> budgetDataList = fetchBudgetData();
 
         // cell factories and value factories of the budget table columns
         category_col.setCellValueFactory(cellData -> cellData.getValue().expenseProperty());
@@ -67,6 +156,7 @@ public class BudgetFormController implements Initializable {
         amount_col.setCellValueFactory(cellData -> cellData.getValue().amountProperty());
         amount_col.setCellFactory(_ -> new BudgetAmountCell());
         amount_col.editableProperty().set(true);
-    }   
 
+        budget_table.setItems(budgetDataList);
+    }
 }

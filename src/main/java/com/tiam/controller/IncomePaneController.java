@@ -13,6 +13,7 @@ import com.tiam.model.IncomeRecordData;
 import com.tiam.model.IncomeStreamData;
 import com.tiam.service.Color;
 import com.tiam.service.Database;
+import com.tiam.service.Accounts;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -202,6 +203,8 @@ public class IncomePaneController extends StackPane implements Initializable {
             try {
                 statement = con.prepareStatement(query);
                 statement.execute();
+
+                Accounts.resetAccountsOnIncomeDelete(selectedRecord.getAmount());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -286,6 +289,9 @@ public class IncomePaneController extends StackPane implements Initializable {
                 incomeCard.prefWidthProperty().bind(income_stream_container.prefWidthProperty());
                 incomeCard.onMouseClickedProperty().set(event -> handleIncomeStreamSelect(event));
             }
+
+            selectedCard = (IncomeCardController) income_stream_container.getChildren().getFirst();
+            income_stream_container.getChildren().getFirst().getStyleClass().add("selected");
 
             empty_income_pane.setVisible(false);
             income_pane.setVisible(true);

@@ -3,10 +3,13 @@ package com.tiam.controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Optional;
 
 import com.tiam.model.ExpenseCategoryData;
+import com.tiam.service.Accounts;
 import com.tiam.service.Database;
 
 import javafx.event.ActionEvent;
@@ -67,10 +70,8 @@ public class ExpenseCardController extends AnchorPane {
 
     // ------------------------------------------------------- Event handlers
     public void showActionButtons(MouseEvent event) {
-        if (!expenseCategory.getName().toUpperCase().equals("SAVINGS")) {
-            editExpenseCategory_btn.setVisible(true);
-            deleteExpenseCategory_btn.setVisible(true);    
-        }
+        editExpenseCategory_btn.setVisible(true);
+        deleteExpenseCategory_btn.setVisible(true);    
     }
 
     public void hideActionButtons(MouseEvent event) {
@@ -78,11 +79,15 @@ public class ExpenseCardController extends AnchorPane {
         deleteExpenseCategory_btn.setVisible(false);
     }
 
+
     public void deleteExpenseCategory(ActionEvent event) {
         Alert dialog = new Alert(AlertType.CONFIRMATION);
         dialog.setContentText("Are your sure you want to delete the selected record ?");
         dialog.getButtonTypes().setAll(ButtonType.YES, ButtonType.CANCEL);
         Optional<ButtonType> result = dialog.showAndWait();
+
+        HashMap<Integer, Double> expense_map = Database.getExpensesForCategory(expenseCategory.getId());
+        Double category_budget = Database.getBudgetForCategory(expenseCategory.getId());
 
         if (result.isPresent() && result.get() == ButtonType.YES) {
             String query = "DELETE FROM ExpenseCategory WHERE id=%d".formatted(expenseCategory.getId());
@@ -91,6 +96,11 @@ public class ExpenseCardController extends AnchorPane {
             try {
                 statement = con.prepareStatement(query);
                 statement.execute();
+
+                for (Integer id : expense_map.keySet()) {
+                    Accounts.resetAccountOnExpenseDelete(expense_map.get(id));
+                }
+                Accounts.resetAccountOnExpenseCategoryDelete(category_budget);
 
                 updateExpenseCategoryList.run();
 
@@ -119,6 +129,8 @@ public class ExpenseCardController extends AnchorPane {
 
 
     // --------------------------------------------------------- Utils
+
+
     public void setUpdateRunnable(Runnable runnable) {
         updateExpenseCategoryList = runnable;
     }

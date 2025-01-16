@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 import com.tiam.model.ExpenseCategoryData;
 import com.tiam.model.ExpenseRecordData;
+import com.tiam.service.Accounts;
 import com.tiam.service.Color;
 import com.tiam.service.Database;
 
@@ -23,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -128,8 +130,10 @@ public class ExpensePaneController extends StackPane implements Initializable{
 
     @FXML 
     public void addExpenseRecord(ActionEvent event) throws IOException{
-        if (selectedExpenseCard == null) {
-
+        if (selectedExpenseCard == null || !isBudgetCreated()) {
+            Alert dialog = new Alert(AlertType.WARNING);
+            dialog.setContentText("First Create a Budget to be able to record an expenditure");
+            dialog.showAndWait();
         } else {
             Stage form = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/expense-record-insert-form.fxml"));
@@ -146,6 +150,8 @@ public class ExpensePaneController extends StackPane implements Initializable{
             empty_expense_pane.getParent().getParent().getParent().setDisable(false); 
             
             fillExpenseRecordTable();
+
+            System.out.println("clicked");
         }
     }
 
@@ -181,8 +187,12 @@ public class ExpensePaneController extends StackPane implements Initializable{
             try {
                 statement = con.prepareStatement(query);
                 statement.execute();
+
+                Accounts.resetAccountOnExpenseDelete(selectedRecord.getAmount());
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                Database.clcoseEverything(con, statement, resultSet);
             }
         } 
 
@@ -251,6 +261,8 @@ public class ExpensePaneController extends StackPane implements Initializable{
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            Database.clcoseEverything(con, statement, resultSet);
         }
 
         return list;
@@ -275,6 +287,8 @@ public class ExpensePaneController extends StackPane implements Initializable{
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            Database.clcoseEverything(con, statement, resultSet);
         }
 
         return list;
@@ -318,9 +332,32 @@ public class ExpensePaneController extends StackPane implements Initializable{
                 expense_category_container.getChildren().add(card);
             }
 
+            expense_category_container.getChildren().getFirst().getStyleClass().add("selected");
+            selectedExpenseCard = (ExpenseCardController) expense_category_container.getChildren().getFirst();
+
             empty_expense_pane.setVisible(false);
             expense_pane.setVisible(true);
         }
+    }
+
+    public boolean isBudgetCreated() {
+        con = Database.getConnection();
+        String query = "SELECT * FROM Budget";
+
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Database.clcoseEverything(con, statement, resultSet);
+        }
+
+        return false;
     }
 
 }
