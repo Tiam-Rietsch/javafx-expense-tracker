@@ -3,6 +3,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -57,7 +58,7 @@
                      </font>
                   </Label>
                   <Button layoutX="294.0" layoutY="15.0" maxWidth="100.0" mnemonicParsing="false" onAction="#addExpenseCategory" prefHeight="30.0" prefWidth="91.0" styleClass="primary-btn" text="New category" AnchorPane.topAnchor="15.0" />
-                  <Button layoutX="301.0" layoutY="455.0" maxWidth="121.0" mnemonicParsing="false" onAction="#createBudget" prefHeight="30.0" prefWidth="121.0" styleClass="primary-btn" text="Make a budget" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+                  <Button layoutX="301.0" layoutY="455.0" maxWidth="121.0" mnemonicParsing="false" onAction="#createBudget" prefHeight="30.0" prefWidth="121.0" styleClass="primary-btn" text="Manage Budget" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="expense_detail_pane" layoutX="406.0" layoutY="129.0" prefHeight="200.0" prefWidth="200.0" styleClass="right-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -72,11 +73,16 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button maxWidth="50.0" mnemonicParsing="false" onAction="#addExpenseRecord" prefHeight="50.0" prefWidth="50.0" styleClass="floating-btn" text="+" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="40.0">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Button>
+                  <Group layoutX="206.60000610351562" layoutY="423.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="33.0">
+                     <children>
+                        <Button layoutX="3.0" layoutY="1.0" maxWidth="50.0" mnemonicParsing="false" onAction="#addExpenseRecord" prefHeight="50.0" prefWidth="50.0" styleClass="floating-btn" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" layoutX="21.0" layoutY="35.0" mouseTransparent="true" size="18" />
+                     </children>
+                  </Group>
                   <Label fx:id="expenditureTitle_label" layoutX="15.0" layoutY="24.0" text="expenditure title" AnchorPane.leftAnchor="15.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
@@ -87,18 +93,26 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="editRecordBtn" maxWidth="50.0" mnemonicParsing="false" onAction="#editExpenseRecord" prefHeight="50.0" prefWidth="50.0" styleClass="floating-btn-secondary" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="100.0">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Button>
-                  <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" mouseTransparent="true" size="18" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="118.0" />
-                  <Button fx:id="deleteRecordBtn" maxWidth="50.0" mnemonicParsing="false" onAction="#deleteExpenseRecord" prefHeight="50.0" prefWidth="50.0" styleClass="floating-btn-danger" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="160.0">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Button>
-                  <FontAwesomeIconView fill="WHITE" glyphName="TRASH" mouseTransparent="true" size="18" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="177.0" />
+                  <Group fx:id="editRecordBtn" layoutX="146.60000610351562" layoutY="423.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="93.0">
+                     <children>
+                        <Button layoutX="3.0" layoutY="1.0" maxWidth="50.0" mnemonicParsing="false" onAction="#editExpenseRecord" prefHeight="50.0" prefWidth="50.0" styleClass="floating-btn-secondary" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" layoutX="20.0" layoutY="35.0" mouseTransparent="true" size="18" />
+                     </children>
+                  </Group>
+                  <Group fx:id="deleteRecordBtn" layoutX="86.5999984741211" layoutY="423.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="154.0">
+                     <children>
+                        <Button layoutX="3.0" layoutY="1.0" maxWidth="50.0" mnemonicParsing="false" onAction="#deleteExpenseRecord" prefHeight="50.0" prefWidth="50.0" styleClass="floating-btn-danger" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <FontAwesomeIconView fill="WHITE" glyphName="TRASH" layoutX="21.0" layoutY="35.0" mouseTransparent="true" size="18" />
+                     </children>
+                  </Group>
                </children>
             </AnchorPane>
          </children>

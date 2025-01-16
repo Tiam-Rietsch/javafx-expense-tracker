@@ -22,14 +22,13 @@
          </font>
       </Label>
       <Rectangle fx:id="income_rectangle" arcHeight="5.0" fill="DODGERBLUE" height="60.0" layoutX="1.6" layoutY="1.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" AnchorPane.bottomAnchor="-0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <FontAwesomeIconView glyphName="ARROW_RIGHT" layoutX="292.0" layoutY="38.0" mouseTransparent="true" size="24" AnchorPane.rightAnchor="15.0" />
-      <Group fx:id="editIncomeStream_btn" layoutX="218.60000610351562" layoutY="17.0" visible="false" AnchorPane.rightAnchor="47.0">
+      <Group fx:id="editIncomeStream_btn" layoutX="218.60000610351562" layoutY="17.0" AnchorPane.rightAnchor="10.0">
          <children>
             <Button layoutX="3.0" layoutY="1.0" mnemonicParsing="false" onAction="#editIncomeStream" prefHeight="26.0" prefWidth="28.0" styleClass="card-edit-btn" />
             <FontAwesomeIconView fill="WHITE" fontSmoothingType="LCD" glyphName="PENCIL" layoutX="11.0" layoutY="19.0" mouseTransparent="true" size="14" styleClass="icon" />
          </children>
       </Group>
-      <Group fx:id="deleteIncomeStream_btn" layoutX="184.0" layoutY="17.0" visible="false" AnchorPane.rightAnchor="80.0">
+      <Group fx:id="deleteIncomeStream_btn" layoutX="184.0" layoutY="17.0" AnchorPane.rightAnchor="45.0">
          <children>
             <Button layoutX="3.0" layoutY="1.0" mnemonicParsing="false" onAction="#deleteIncomeStream" prefHeight="26.0" prefWidth="28.0" styleClass="card-del-btn" />
             <FontAwesomeIconView fill="WHITE" fontSmoothingType="LCD" glyphName="TRASH" layoutX="11.0" layoutY="19.0" mouseTransparent="true" size="14" styleClass="icon" />

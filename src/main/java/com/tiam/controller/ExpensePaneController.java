@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -57,10 +58,10 @@ public class ExpensePaneController extends StackPane implements Initializable{
     private TableView<ExpenseRecordData> expense_table;
 
     @FXML
-    private Button deleteRecordBtn;
+    private Group deleteRecordBtn;
 
     @FXML
-    private Button editRecordBtn;
+    private Group editRecordBtn;
 
     @FXML
     private AnchorPane msg_container;
@@ -306,7 +307,10 @@ public class ExpensePaneController extends StackPane implements Initializable{
             expenseReason_col.setCellValueFactory(cellData -> cellData.getValue().reasonProperty());
             expenseAmount_col.setCellValueFactory(cellData -> cellData.getValue().amountProperty());
             
-            expense_table.setItems(expenseRecordList);    
+            expense_table.setItems(expenseRecordList);  
+            expense_table.getSelectionModel().select(0);
+            showRecordActionButtons();  
+            selectedExpenseCard.updateTotalExpenseLabel();
         } else {
             Alert dialog = new Alert(AlertType.WARNING);
             dialog.setContentText("first select an expense category");
@@ -332,8 +336,9 @@ public class ExpensePaneController extends StackPane implements Initializable{
                 expense_category_container.getChildren().add(card);
             }
 
-            expense_category_container.getChildren().getFirst().getStyleClass().add("selected");
-            selectedExpenseCard = (ExpenseCardController) expense_category_container.getChildren().getFirst();
+            expense_category_container.getChildren().getLast().getStyleClass().add("selected");
+            selectedExpenseCard = (ExpenseCardController) expense_category_container.getChildren().getLast();
+            fillExpenseRecordTable();
 
             empty_expense_pane.setVisible(false);
             expense_pane.setVisible(true);

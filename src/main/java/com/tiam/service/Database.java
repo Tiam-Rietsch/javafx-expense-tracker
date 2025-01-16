@@ -254,6 +254,50 @@ public class Database {
 
     // ----------------------------------------------------- other
 
+    public static Double getTotalExpenseForCategory(int category_id) {
+        String query = "SELECT SUM(amount) AS total_expenses FROM ExpenseRecord WHERE category_id=%d".formatted(category_id);
+        Connection con = Database.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getDouble("total_expenses");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            clcoseEverything(con, statement, resultSet);
+        }
+
+        return 0.0;
+    }
+
+    public static Double getTotalIncomeForStream(int stream_id) {
+        String query = "SELECT SUM(amount) AS total_income FROM IncomeRecord WHERE stream_id=%d".formatted(stream_id);
+        Connection con = Database.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getDouble("total_income");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            clcoseEverything(con, statement, resultSet);
+        }
+
+        return 0.0;
+    }
+
     public static int getExpenseCategoryCount() {
         String query = "SELECT COUNT(*) AS total_count FROM ExpenseCategory";
         Connection con = Database.getConnection();

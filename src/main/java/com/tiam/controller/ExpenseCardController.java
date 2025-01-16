@@ -65,20 +65,20 @@ public class ExpenseCardController extends AnchorPane {
 
         this.expense_rectangle.setFill(Paint.valueOf(expenseCategory.getColor().getHex()));
         this.title_label.setText(expenseCategory.getName());
-    }
 
+        updateTotalExpenseLabel();
+    }
 
     // ------------------------------------------------------- Event handlers
     public void showActionButtons(MouseEvent event) {
         editExpenseCategory_btn.setVisible(true);
-        deleteExpenseCategory_btn.setVisible(true);    
+        deleteExpenseCategory_btn.setVisible(true);
     }
 
     public void hideActionButtons(MouseEvent event) {
         editExpenseCategory_btn.setVisible(false);
         deleteExpenseCategory_btn.setVisible(false);
     }
-
 
     public void deleteExpenseCategory(ActionEvent event) {
         Alert dialog = new Alert(AlertType.CONFIRMATION);
@@ -111,11 +111,10 @@ public class ExpenseCardController extends AnchorPane {
 
     }
 
-
-    public void editExpenseCategory(ActionEvent event) throws IOException{
+    public void editExpenseCategory(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/expense-category-update-form.fxml"));
         Scene scene = new Scene(loader.load());
-        ((ExpenseCategoryUpdateController)loader.getController()).setExpenseCategory(expenseCategory);
+        ((ExpenseCategoryUpdateController) loader.getController()).setExpenseCategory(expenseCategory);
         Stage editForm = new Stage(StageStyle.UTILITY);
         editForm.setScene(scene);
         editForm.setResizable(false);
@@ -127,9 +126,7 @@ public class ExpenseCardController extends AnchorPane {
         updateExpenseCategoryList.run();
     }
 
-
     // --------------------------------------------------------- Utils
-
 
     public void setUpdateRunnable(Runnable runnable) {
         updateExpenseCategoryList = runnable;
@@ -141,5 +138,10 @@ public class ExpenseCardController extends AnchorPane {
 
     public ExpenseCategoryData getSelectedExpense() {
         return expenseCategory;
-    }    
+    }
+
+    public void updateTotalExpenseLabel() {
+        amount_budget_label.setText(Database.getTotalExpenseForCategory(expenseCategory.getId()) + "XAF / "
+        + Database.getBudgetForCategory(expenseCategory.getId()) + " XAF");
+    }
 }

@@ -65,6 +65,8 @@ public class IncomeCardController extends AnchorPane {
         income_rectangle.setFill(Paint.valueOf(incomeStream.getColor().getHex()));
         title_label.setText(incomeStream.getName());
 
+        updateTotalIncomeLabel();
+
     }
 
 
@@ -137,5 +139,7 @@ public class IncomeCardController extends AnchorPane {
         updateIncomeStreamList = runnable;
     }
 
-
+    public void updateTotalIncomeLabel() {
+        amount_label.setText(Database.getTotalIncomeForStream(incomeStream.getId()).toString() + " XAF");
+    }
 }

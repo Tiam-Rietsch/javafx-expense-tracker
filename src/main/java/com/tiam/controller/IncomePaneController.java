@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -65,10 +66,10 @@ public class IncomePaneController extends StackPane implements Initializable {
     private AnchorPane msg_container;
 
     @FXML
-    private Button editRecordBtn;
+    private Group editRecordBtn;
 
     @FXML
-    private Button deleteRecordBtn;
+    private Group deleteRecordBtn;
 
     @FXML
     private Label streamTitle_label;
@@ -148,7 +149,7 @@ public class IncomePaneController extends StackPane implements Initializable {
         }
     }
 
-    public void showEditRecordBtn(MouseEvent mouseEvent) {
+    public void showRecordActionButtons(MouseEvent mouseEvent) {
         if (income_table.getSelectionModel().getSelectedItem() != null) {
             editRecordBtn.setVisible(true);
             deleteRecordBtn.setVisible(true);
@@ -270,7 +271,12 @@ public class IncomePaneController extends StackPane implements Initializable {
             dateRecorded_col.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
             amount_col.setCellValueFactory(cellData -> cellData.getValue().amountProperty());
             income_table.setItems(incomeRecordList);
+            income_table.getSelectionModel().select(0);            
         }
+
+        selectedCard.updateTotalIncomeLabel();
+        showRecordActionButtons(null);
+
     }
 
     private void fillIncomeStreamList() {
@@ -290,8 +296,9 @@ public class IncomePaneController extends StackPane implements Initializable {
                 incomeCard.onMouseClickedProperty().set(event -> handleIncomeStreamSelect(event));
             }
 
-            selectedCard = (IncomeCardController) income_stream_container.getChildren().getFirst();
-            income_stream_container.getChildren().getFirst().getStyleClass().add("selected");
+            selectedCard = (IncomeCardController) income_stream_container.getChildren().getLast();
+            selectedCard.getStyleClass().add("selected");
+            fillIncomeRecordTable();
 
             empty_income_pane.setVisible(false);
             income_pane.setVisible(true);

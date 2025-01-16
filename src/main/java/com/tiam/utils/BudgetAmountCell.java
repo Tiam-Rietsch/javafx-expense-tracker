@@ -3,6 +3,7 @@ package com.tiam.utils;
 
 import com.tiam.model.BudgetData;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -21,6 +22,8 @@ public class BudgetAmountCell extends TableCell<BudgetData, Double> {
     private Spinner<Double> spinner;
     private Label label;
 
+    private Double amountBeforeEdit;
+    private ObjectProperty<Double> availableIncomeProperty;
     /**
      * Initialized a BudgetAmountCell
      * 
@@ -30,34 +33,21 @@ public class BudgetAmountCell extends TableCell<BudgetData, Double> {
      * 
      * @see BudgetData
      */
-    public BudgetAmountCell() {
-        spinner = new Spinner<>(0, Double.MAX_VALUE, 1);
+    public BudgetAmountCell(ObjectProperty<Double> availableIncomeProperty) {
+        spinner = new Spinner<>(0, availableIncomeProperty.get(), 1);
         spinner.setEditable(true);
         spinner.getStyleClass().add("default-spinner");
         label = new Label();
         label.setTextFill(Paint.valueOf("black"));
         setAlignment(Pos.CENTER_LEFT);
 
-        // bind the observable amount to the spinner
-        spinner.valueProperty().addListener((_, _, newVal) -> {
-            if (getTableRow() != null && getTableRow().getItem() != null) {
-                BudgetData budgetData = getTableRow().getItem();
-                budgetData.setAmount(newVal.doubleValue());
-            }
-        });
-
-        // TODO: remove this so that only double click triggers editing
-        setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.getClickCount() == 1 && !isEmpty()) {
-                startEdit();
-            }
-        });
+        this.availableIncomeProperty = availableIncomeProperty;
 
         // commit the editing when the enter key is pressed
         spinner.getEditor().setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.ENTER) {
+            if (keyEvent.getCode() == KeyCode.ENTER)
                 commitEdit(spinner.getValue());
-            }
+            
         });
     }
 
@@ -81,6 +71,8 @@ public class BudgetAmountCell extends TableCell<BudgetData, Double> {
     public void startEdit() {
         super.startEdit();
         setGraphic(spinner);
+        amountBeforeEdit = getItem();
+
         spinner.getValueFactory().setValue(getItem());
         spinner.getEditor().requestFocus();
         spinner.getEditor().selectAll();
@@ -95,6 +87,8 @@ public class BudgetAmountCell extends TableCell<BudgetData, Double> {
     @Override
     public void commitEdit(Double amount) {
         super.commitEdit(amount);
+
+        availableIncomeProperty.set(availableIncomeProperty.get() - (amount - amountBeforeEdit));
         setGraphic(label);
     }
 

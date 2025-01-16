@@ -19,6 +19,8 @@ import com.tiam.service.DateManager;
 import com.tiam.utils.BudgetAmountCell;
 import com.tiam.utils.BudgetCategoryCell;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -73,10 +75,15 @@ public class BudgetFormController implements Initializable {
     @FXML
     private Label endDate_label;
 
+    @FXML
+    private Label availableIncome_label;
+
     // database tools
     private Connection con;
     private PreparedStatement statement;
     private ResultSet resultSet;
+
+    private final ObjectProperty<Double> availableIncomeProperty = new SimpleObjectProperty<>();
 
     private HashMap<Integer, Double> oldBudget_map = new HashMap<>();
 
@@ -86,6 +93,10 @@ public class BudgetFormController implements Initializable {
 
         startDate_label.setText(DateManager.parseString(LocalDate.now().withDayOfMonth(1)));
         endDate_label.setText(DateManager.parseString(LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth())));
+
+        availableIncomeProperty.set(Database.getAvailableIncome());
+        availableIncome_label.textProperty().bind(availableIncomeProperty.asString().concat(" XAF"));
+
     }   
 
     // ----------------------------------------------------------------------- Event Handlers
@@ -154,7 +165,7 @@ public class BudgetFormController implements Initializable {
         category_col.setCellValueFactory(cellData -> cellData.getValue().expenseProperty());
         category_col.setCellFactory(_ -> new BudgetCategoryCell());
         amount_col.setCellValueFactory(cellData -> cellData.getValue().amountProperty());
-        amount_col.setCellFactory(_ -> new BudgetAmountCell());
+        amount_col.setCellFactory(_ -> new BudgetAmountCell(availableIncomeProperty));
         amount_col.editableProperty().set(true);
 
         budget_table.setItems(budgetDataList);
