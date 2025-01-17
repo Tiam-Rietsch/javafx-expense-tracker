@@ -78,11 +78,16 @@ public class ExpensePaneController extends StackPane implements Initializable{
     @FXML
     private Label expenditureTitle_label;
 
+    @FXML
+    private Label totalExpenses_label;
+
     private ExpenseCardController selectedExpenseCard;
 
     private Connection con;
     private PreparedStatement statement;
     private ResultSet resultSet;
+
+    private Runnable networthUpdateRunnable;
 
     public ExpensePaneController() {
         try {
@@ -215,6 +220,8 @@ public class ExpensePaneController extends StackPane implements Initializable{
         empty_expense_pane.getParent().getParent().getParent().setDisable(true);
         form.showAndWait();    
         empty_expense_pane.getParent().getParent().getParent().setDisable(false);
+
+        fillExpenseCategoryList();
     }
 
     public void handleExpenseCardClick(MouseEvent mouseEvent) {
@@ -298,6 +305,8 @@ public class ExpensePaneController extends StackPane implements Initializable{
     public void fillExpenseRecordTable() {
         expense_table.getItems().clear();
         expenditureTitle_label.setText(selectedExpenseCard.getSelectedExpense().getName());
+        totalExpenses_label.setText(Database.getTotalExpenseForCategory(selectedExpenseCard.getSelectedExpense().getId()) + "XAF / "
+        + Database.getBudgetForCategory(selectedExpenseCard.getSelectedExpense().getId()) + " XAF");
         showRecordActionButtons();
 
         if (selectedExpenseCard != null) {
@@ -316,6 +325,8 @@ public class ExpensePaneController extends StackPane implements Initializable{
             dialog.setContentText("first select an expense category");
             dialog.showAndWait();
         }
+
+        if (networthUpdateRunnable != null) networthUpdateRunnable.run();
     }
 
 
@@ -343,6 +354,8 @@ public class ExpensePaneController extends StackPane implements Initializable{
             empty_expense_pane.setVisible(false);
             expense_pane.setVisible(true);
         }
+
+        if (networthUpdateRunnable != null) networthUpdateRunnable.run();
     }
 
     public boolean isBudgetCreated() {
@@ -363,6 +376,10 @@ public class ExpensePaneController extends StackPane implements Initializable{
         }
 
         return false;
+    }
+
+    public void setNetworthUpdateRunnable(Runnable runnable) {
+        networthUpdateRunnable = runnable;
     }
 
 }

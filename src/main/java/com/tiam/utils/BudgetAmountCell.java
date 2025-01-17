@@ -1,19 +1,19 @@
 package com.tiam.utils;
 
-
 import com.tiam.model.BudgetData;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
 
-
 /**
- * Custom TableCell for displaying and updating budget amount in the budget tableview
+ * Custom TableCell for displaying and updating budget amount in the budget
+ * tableview
  * 
  * @author Tiam Rietsch
  * @see BudjetData
@@ -24,12 +24,16 @@ public class BudgetAmountCell extends TableCell<BudgetData, Double> {
 
     private Double amountBeforeEdit;
     private ObjectProperty<Double> availableIncomeProperty;
+
     /**
      * Initialized a BudgetAmountCell
      * 
-     * <p>by default the constructor creates a {@code Spinner} object for editing and a
-     * {@code Label} object for display. The {@code amountProperty()} of the cell's model then listens to the changes
-     * the the spinner's {@code valueProperty} to update it's content during editing</p>
+     * <p>
+     * by default the constructor creates a {@code Spinner} object for editing and a
+     * {@code Label} object for display. The {@code amountProperty()} of the cell's
+     * model then listens to the changes
+     * the the spinner's {@code valueProperty} to update it's content during editing
+     * </p>
      * 
      * @see BudgetData
      */
@@ -47,7 +51,6 @@ public class BudgetAmountCell extends TableCell<BudgetData, Double> {
         spinner.getEditor().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER)
                 commitEdit(spinner.getValue());
-            
         });
     }
 
@@ -59,7 +62,6 @@ public class BudgetAmountCell extends TableCell<BudgetData, Double> {
             setGraphic(null);
         } else {
             BudgetData budget = getTableRow().getItem();
-
             if (budget != null) {
                 label.textProperty().bind(budget.amountProperty().asString());
             }
@@ -67,15 +69,21 @@ public class BudgetAmountCell extends TableCell<BudgetData, Double> {
         }
     }
 
+    private void setSpinnerForEditiing() {
+        BudgetData budget = getTableRow().getItem();
+        SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0,
+                budget.getAmount() + availableIncomeProperty.get(), budget.getAmount(), 25.0);
+        spinner.setValueFactory(valueFactory);
+        spinner.getEditor().requestFocus();
+        spinner.getEditor().selectAll();
+    }
+
     @Override
     public void startEdit() {
         super.startEdit();
         setGraphic(spinner);
         amountBeforeEdit = getItem();
-
-        spinner.getValueFactory().setValue(getItem());
-        spinner.getEditor().requestFocus();
-        spinner.getEditor().selectAll();
+        setSpinnerForEditiing();
     }
 
     @Override
@@ -91,6 +99,5 @@ public class BudgetAmountCell extends TableCell<BudgetData, Double> {
         availableIncomeProperty.set(availableIncomeProperty.get() - (amount - amountBeforeEdit));
         setGraphic(label);
     }
-
 
 }

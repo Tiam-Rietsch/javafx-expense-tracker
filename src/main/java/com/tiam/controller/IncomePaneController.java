@@ -74,6 +74,11 @@ public class IncomePaneController extends StackPane implements Initializable {
     @FXML
     private Label streamTitle_label;
 
+    @FXML
+    private Label totalIncome_label;
+
+    private Runnable networthUpdateRunnable;
+
     // database tools
     private Connection con;
     private PreparedStatement statement;
@@ -264,6 +269,7 @@ public class IncomePaneController extends StackPane implements Initializable {
 
     private void fillIncomeRecordTable() {
         streamTitle_label.setText(selectedCard.getIncomeStream().getName());
+        totalIncome_label.setText(Database.getTotalIncomeForStream(selectedCard.getIncomeStream().getId()).toString() + " XAF");
         ObservableList<IncomeRecordData> incomeRecordList = fetchIncomRecords();
         income_table.getItems().clear();
         
@@ -276,6 +282,8 @@ public class IncomePaneController extends StackPane implements Initializable {
 
         selectedCard.updateTotalIncomeLabel();
         showRecordActionButtons(null);
+
+        if (networthUpdateRunnable != null) networthUpdateRunnable.run();
 
     }
 
@@ -303,5 +311,11 @@ public class IncomePaneController extends StackPane implements Initializable {
             empty_income_pane.setVisible(false);
             income_pane.setVisible(true);
         }
+
+        if (networthUpdateRunnable != null) networthUpdateRunnable.run();
+    }
+
+    public void setNetworthUpdateRunnable(Runnable runnable) {
+        networthUpdateRunnable = runnable;
     }
 }

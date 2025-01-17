@@ -86,7 +86,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="241.0" layoutY="24.0" text="500 000 XAF" AnchorPane.rightAnchor="15.0">
+                  <Label fx:id="totalIncome_label" layoutX="241.0" layoutY="24.0" text="500 000 XAF" AnchorPane.rightAnchor="15.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

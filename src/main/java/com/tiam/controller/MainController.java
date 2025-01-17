@@ -3,6 +3,8 @@ package com.tiam.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.tiam.service.Database;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,10 +25,16 @@ public class MainController implements Initializable {
     private AnchorPane main_container;
 
     @FXML
-    private Label networth_label;
+    private Label totalBudget_label;
 
     @FXML
     private Button report_btn;
+
+    @FXML
+    private Label availableIncome_label;
+
+    @FXML
+    private Label totalExpenses_label;
 
     private void applyPane(StackPane pane) {
         AnchorPane.setTopAnchor(pane, 0.0);
@@ -47,9 +55,12 @@ public class MainController implements Initializable {
         if (event.getTarget().equals(expense_btn)) {
             expense_btn.getStyleClass().add("selected");
             pane = new ExpensePaneController();
+            ((ExpensePaneController)pane).setNetworthUpdateRunnable(this::updateNetworthLabel);
+
         } else if (event.getTarget().equals(income_btn)) {
             income_btn.getStyleClass().add("selected");
             pane = new IncomePaneController();
+            ((IncomePaneController)pane).setNetworthUpdateRunnable(this::updateNetworthLabel);
         } else if (event.getTarget().equals(report_btn)) {
             report_btn.getStyleClass().add("selected");
             pane = new ReportPaneController();
@@ -59,11 +70,20 @@ public class MainController implements Initializable {
 
     }
 
+    public void updateNetworthLabel() {
+        totalBudget_label.setText(Database.getTotalBudgetForAll().toString() + " XAF");
+        availableIncome_label.setText(Database.getAvailableIncome().toString() + " XAF");
+        totalExpenses_label.setText(Database.getTotalExpensesForAll().toString() + " XAF");
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         IncomePaneController pane = new IncomePaneController();
+        pane.setNetworthUpdateRunnable(this::updateNetworthLabel);
         applyPane(pane);
+
+        updateNetworthLabel();
     }
 
 

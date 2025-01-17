@@ -167,6 +167,29 @@ public class Database {
         return 0.0;
     }
 
+    public static Double getTotalBudgetForAll() {
+        String query = "SELECT SUM(amount) as total_budget FROM Budget";
+        Connection con = Database.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getDouble("total_budget");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            clcoseEverything(con, statement, resultSet);
+        }
+
+        return 0.0;
+    }
+    
+
     public static void increaseRemainingBudgetBy(Double value) {
         String query = "UPDATE Data SET value = value + %f WHERE label=\"remaining_budget\"".formatted(value);
         Connection con = Database.getConnection();
@@ -288,6 +311,28 @@ public class Database {
 
             if (resultSet.next()) {
                 return resultSet.getDouble("total_income");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            clcoseEverything(con, statement, resultSet);
+        }
+
+        return 0.0;
+    }
+
+    public static Double getTotalExpensesForAll() {
+        String query = "SELECT SUM(amount) AS total_expenses FROM ExpenseRecord";
+        Connection con = Database.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getDouble("total_expenses");
             }
         } catch (SQLException e){
             e.printStackTrace();
