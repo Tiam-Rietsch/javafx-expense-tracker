@@ -71,9 +71,9 @@ public class MainController implements Initializable {
     }
 
     public void updateNetworthLabel() {
-        totalBudget_label.setText(Database.getTotalBudgetForAll().toString() + " XAF");
+        totalBudget_label.setText(Database.getTotalBudgetForMonth().toString() + " XAF");
         availableIncome_label.setText(Database.getAvailableIncome().toString() + " XAF");
-        totalExpenses_label.setText(Database.getTotalExpensesForAll().toString() + " XAF");
+        totalExpenses_label.setText(Database.getTotalExpensesForMonth().toString() + " XAF");
     }
 
 

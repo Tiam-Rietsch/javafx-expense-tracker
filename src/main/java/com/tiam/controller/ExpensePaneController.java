@@ -14,6 +14,7 @@ import com.tiam.model.ExpenseRecordData;
 import com.tiam.service.Accounts;
 import com.tiam.service.Color;
 import com.tiam.service.Database;
+import com.tiam.service.DateManager;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -251,7 +252,12 @@ public class ExpensePaneController extends StackPane implements Initializable{
 
     public ObservableList<ExpenseCategoryData> fetchExpenseCategories() {
         ObservableList<ExpenseCategoryData> list = FXCollections.observableArrayList();
-        String query = "SELECT * FROM ExpenseCategory";
+        String query = """
+                SELECT ExpenseCategory.name, ExpenseCategory.id, ExpenseCategory.color_name 
+                FROM ExpenseCategory
+                INNER JOIN Account ON Account.id = ExpenseCategory.account_id 
+                WHERE Account.id = %d
+                """.formatted(Accounts.id);
         con = Database.getConnection();
 
         try {
@@ -335,7 +341,7 @@ public class ExpensePaneController extends StackPane implements Initializable{
 
         if (expenseCategoryList.isEmpty()) {
             empty_expense_pane.setVisible(true);
-            expense_detail_pane.setVisible(false);
+            expense_pane.setVisible(false);
         } else {
             for (ExpenseCategoryData expenseCategory : expenseCategoryList) {
                 ExpenseCardController card = new ExpenseCardController(expenseCategory);

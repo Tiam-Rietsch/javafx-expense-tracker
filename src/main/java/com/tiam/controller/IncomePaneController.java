@@ -13,6 +13,7 @@ import com.tiam.model.IncomeRecordData;
 import com.tiam.model.IncomeStreamData;
 import com.tiam.service.Color;
 import com.tiam.service.Database;
+import com.tiam.service.DateManager;
 import com.tiam.service.Accounts;
 
 import javafx.collections.FXCollections;
@@ -222,7 +223,12 @@ public class IncomePaneController extends StackPane implements Initializable {
     /** ---------------------------------------------------------------------- utilities */
 
     private ObservableList<IncomeStreamData> fetchIncomStreams() {
-        String query = "SELECT * FROM IncomeStream";
+        String query = """
+                SELECT IncomeStream.id, IncomeStream.name, IncomeStream.color_name
+                FROM IncomeStream
+                INNER JOIN Account ON IncomeStream.account_id = Account.id
+                WHERE Account.id = %d
+                """.formatted(Accounts.id);
         con = Database.getConnection();
         ObservableList<IncomeStreamData> incomeStreamList = FXCollections.observableArrayList();
         try {

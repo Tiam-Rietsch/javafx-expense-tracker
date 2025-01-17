@@ -1,6 +1,8 @@
 package com.tiam.service;
 
 public class Accounts {
+    public static final int id = Database.getCurrentAccountId();
+
     public static void  resetAccountsOnIncomeDelete(Double income) {
         Double available_income = Database.getAvailableIncome();
 

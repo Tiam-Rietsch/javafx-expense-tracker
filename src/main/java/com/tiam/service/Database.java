@@ -40,7 +40,10 @@ public class Database {
     // ------------------------------------------------- available income 
 
     public static Double getAvailableIncome() {
-        String query = "SELECT value FROM Data WHERE label=\"available_income\"";
+        String query = """
+                SELECT available_income FROM Account
+                WHERE id = %d
+                """.formatted(Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -49,7 +52,7 @@ public class Database {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                return resultSet.getDouble("value");
+                return resultSet.getDouble("available_income");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,7 +64,10 @@ public class Database {
     }
 
     public static void decreaseAvailableIncomeBy(Double value) {
-        String query = "UPDATE Data SET value = value - %f WHERE label=\"available_income\"".formatted(value);
+        String query = """
+                UPDATE Account SET available_income = available_income - %f 
+                WHERE id = %d
+                """.formatted(value, Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -76,7 +82,10 @@ public class Database {
     }
 
     public static void increaseAvailableIncomeBy(Double value) {
-        String query = "UPDATE Data SET value = value + %f WHERE label=\"available_income\"".formatted(value);
+        String query = """
+                UPDATE Account SET available_income = available_income + %f 
+                WHERE id = %d
+                """.formatted(value, Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -93,7 +102,13 @@ public class Database {
     // --------------------------------------------------------- budget
 
     public static void decreaseAllBudgetsBy(Double amt) {
-        String query = "UPDATE Budget SET amount = amount - %f".formatted(amt);
+        String query = """
+                UPDATE Budget SET amount = amount - %f
+                FROM Budget
+                INNER JOIN ExpenseCategory ON Budget.category_id = ExpenseCategory.id
+                INNER JOIN Account ON Account.id = ExpenseCategory.account_id
+                WHERE Account.id = %d
+                """.formatted(amt, Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -123,7 +138,11 @@ public class Database {
     }
 
     public static Double getRemainingBudget() {
-        String query = "SELECT value FROM Data WHERE label=\"remaining_budget\"";
+        String query = """
+                SELECT remaining_budget
+                FROM Account
+                WHERE id = %d
+                """.formatted(Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -132,7 +151,7 @@ public class Database {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                return resultSet.getDouble("value");
+                return resultSet.getDouble("remaining_budget");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -165,8 +184,14 @@ public class Database {
         return 0.0;
     }
 
-    public static Double getTotalBudgetForAll() {
-        String query = "SELECT SUM(amount) as total_budget FROM Budget";
+    public static Double getTotalBudgetForMonth() {
+        String query = """
+                SELECT SUM(amount) as total_budget 
+                FROM Budget
+                INNER JOIN ExpenseCategory ON ExpenseCategory.id = Budget.category_id
+                INNER JOIN Account ON ExpenseCategory.account_id = Account.id
+                WHERE Account.id = %d
+                """.formatted(Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -189,7 +214,10 @@ public class Database {
     
 
     public static void increaseRemainingBudgetBy(Double value) {
-        String query = "UPDATE Data SET value = value + %f WHERE label=\"remaining_budget\"".formatted(value);
+        String query = """
+                UPDATE Account SET remaining_budget = remaining_budget + %f 
+                WHERE id = %d
+                """.formatted(value, Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -204,7 +232,10 @@ public class Database {
     }
 
     public static void decreaseRemainingBudgetBy(Double value) {
-        String query = "UPDATE Data SET value = value - %f WHERE label=\"remaining_budget\"".formatted(value);
+        String query = """
+                UPDATE Account SET remaining_budget = remaining_budget - %f 
+                WHERE id = %d
+                """.formatted(value, Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -222,7 +253,10 @@ public class Database {
     // ---------------------------------------------------------------- networth 
 
     public static void increaseNetworthBy(Double value) {
-        String query = "UPDATE Data SET value= value + %f WHERE label=\"networth\"".formatted(value);
+        String query = """
+                UPDATE Account SET networth = networth + %f 
+                WHERE id = %d
+                """.formatted(value, Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -237,7 +271,10 @@ public class Database {
     }
 
     public static void decreaseNetworthBy(Double value) {
-        String query = "UPDATE Data SET value= value - %f WHERE label=\"networth\"".formatted(value);
+        String query =  """
+            UPDATE Account SET networth = networth - %f 
+            WHERE id = %d
+            """.formatted(value, Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -252,7 +289,10 @@ public class Database {
     }
 
     public static Double getNetworth() {
-        String query = "SELECT value FROM Data WHERE label=\"networth\"";
+        String query = """
+                SELECT networth FROM Account
+                WHERE id=%d
+                """.formatted(Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -319,8 +359,14 @@ public class Database {
         return 0.0;
     }
 
-    public static Double getTotalExpensesForAll() {
-        String query = "SELECT SUM(amount) AS total_expenses FROM ExpenseRecord";
+    public static Double getTotalExpensesForMonth() {
+        String query = """
+                SELECT SUM(amount) AS total_expenses
+                FROM ExpenseRecord
+                INNER JOIN ExpenseCategory ON ExpenseRecord.category_id = ExpenseCategory.id
+                INNER JOIN Account ON Account.id = ExpenseCategory.account_id
+                WHERE Account.id=%d
+                """.formatted(Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -342,7 +388,12 @@ public class Database {
     }
 
     public static int getExpenseCategoryCount() {
-        String query = "SELECT COUNT(*) AS total_count FROM ExpenseCategory";
+        String query = """
+                SELECT Count(*) AS total_count
+                FORM ExpenseCategory
+                INNER JOIN Account ON ExpenseCategory.category_id = Account.id
+                WHERE Account.id = %d"
+                """.formatted(Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -424,5 +475,34 @@ public class Database {
         }
 
         return 0.0;
+    }
+
+    public static int getCurrentAccountId() {
+        String query = "SELECT id FROM Account WHERE month=\"%s\" AND year=\"%s\"".formatted(DateManager.getCurrentMonth(), DateManager.getCurrentYear());
+        String insertQuery = """
+                INSERT INTO Account (available_income, remaining_budget, networth, month, year)
+                VALUES ("0.0", "0.0", "0.0", "%s", "%s")
+                """.formatted(DateManager.getCurrentMonth(), DateManager.getCurrentYear());
+        Connection con = Database.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            } else {
+                statement = con.prepareStatement(insertQuery);
+                statement.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            clcoseEverything(con, statement, resultSet);
+        }
+
+        return getCurrentAccountId();
     }
 }

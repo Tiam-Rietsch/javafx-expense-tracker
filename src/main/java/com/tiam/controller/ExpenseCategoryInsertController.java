@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.tiam.service.Accounts;
 import com.tiam.service.Color;
 import com.tiam.service.Database;
 import com.tiam.utils.ColorListCell;
@@ -42,8 +43,8 @@ public class ExpenseCategoryInsertController implements Initializable {
     public void addExpenseCategory(ActionEvent event) {
         if (!expense_name_tf.getText().isEmpty() || colors_cb.getValue() != null) {
             String query = """
-                    INSERT INTO ExpenseCategory (name, color_name) VALUES ("%s", "%s")
-                    """.formatted(expense_name_tf.getText(), colors_cb.getValue().getName());
+                    INSERT INTO ExpenseCategory (name, color_name, account_id) VALUES ("%s", "%s", %d)
+                    """.formatted(expense_name_tf.getText(), colors_cb.getValue().getName(), Accounts.id);
             con = Database.getConnection();
 
             try {

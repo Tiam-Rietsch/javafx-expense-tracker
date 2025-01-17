@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.tiam.service.Accounts;
 import com.tiam.service.Color;
 import com.tiam.service.Database;
 import com.tiam.utils.ColorListCell;
@@ -51,8 +52,8 @@ public class IncomeStreamInsertController implements Initializable {
             dialog.showAndWait();
         } else {
             String query = """
-                INSERT INTO IncomeStream (name, color_name) VALUES ("%s", "%s")
-                """.formatted(income_name_tf.getText(), colors_cb.getSelectionModel().getSelectedItem().getName());
+                INSERT INTO IncomeStream (name, color_name, account_id) VALUES ("%s", "%s", %d)
+                """.formatted(income_name_tf.getText(), colors_cb.getSelectionModel().getSelectedItem().getName(), Accounts.id);
 
             con = Database.getConnection();
             try {

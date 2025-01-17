@@ -131,8 +131,10 @@ public class BudgetFormController implements Initializable {
         String query = """
                 SELECT Budget.id, Budget.amount, ExpenseCategory.name, ExpenseCategory.color_name, Budget.category_id
                 FROM Budget
-                INNER JOIN ExpenseCategory ON ExpenseCategory.id = Budget.category_id;
-                """;
+                INNER JOIN ExpenseCategory ON ExpenseCategory.id = Budget.category_id
+                INNER JOIN Account ON Account.id = ExpenseCategory.account_id
+                WHERE Account.id = %d
+                """.formatted(Accounts.id);
         con = Database.getConnection();
 
         try {
