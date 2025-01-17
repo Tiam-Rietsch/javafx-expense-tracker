@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import com.tiam.service.Accounts;
 import com.tiam.service.Color;
 import com.tiam.service.Database;
 import com.tiam.utils.ColorListCell;
