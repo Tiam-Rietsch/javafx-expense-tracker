@@ -13,7 +13,6 @@ import com.tiam.model.IncomeRecordData;
 import com.tiam.model.IncomeStreamData;
 import com.tiam.service.Color;
 import com.tiam.service.Database;
-import com.tiam.service.DateManager;
 import com.tiam.service.Accounts;
 
 import javafx.collections.FXCollections;
