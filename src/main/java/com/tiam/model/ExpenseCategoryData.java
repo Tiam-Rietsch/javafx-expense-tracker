@@ -31,6 +31,22 @@ public class ExpenseCategoryData {
      */
     private final ObjectProperty<Integer> idProp = new SimpleObjectProperty<>();
 
+
+    private final ObjectProperty<Double> totalExpensesProp = new SimpleObjectProperty<>();
+
+    public Double getTotalExpenses() {
+        return totalExpensesProp.get();
+    }
+
+    public void setTotalExpenses(Double amount) {
+        totalExpensesProp.set(amount);
+    }
+
+    public ObjectProperty<Double> totalExpensesProperty() {
+        return totalExpensesProp;
+    }
+
+
     /**
      * returns the color of the expense category. the color is of type {@link Color}
      * @return an object of type {@code Color} corresponding to the color

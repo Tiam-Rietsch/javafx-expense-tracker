@@ -16,26 +16,26 @@
       <AnchorPane layoutX="183.0" layoutY="146.0" prefHeight="691.0" prefWidth="526.0" style="-fx-background-color: #F8EDED;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane fx:id="incomeOverviewCard" layoutX="14.0" layoutY="14.0" prefHeight="120.0" prefWidth="210.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-               <styleClass>
-                  <String fx:value="dashboard-card" />
-                  <String fx:value="slateblue-gradient" />
-               </styleClass>
                <children>
-                  <Label layoutX="14.0" layoutY="20.0" text="Total Expenditurs" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="20.0">
+                  <Label layoutX="14.0" layoutY="20.0" text="Total Expenses" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="20.0">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="14.0" layoutY="46.0" text="250 000 XAF" textFill="WHITE" AnchorPane.leftAnchor="15.0">
+                  <Label fx:id="totalExpenses_label" layoutX="14.0" layoutY="46.0" text="250 000 XAF" textFill="WHITE" AnchorPane.leftAnchor="15.0">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>
                   </Label>
-               </children></AnchorPane>
+               </children>
+               <styleClass>
+                  <String fx:value="dashboard-card" />
+                  <String fx:value="coralpink-gradient" />
+               </styleClass></AnchorPane>
             <AnchorPane fx:id="expenseOverviewCard" layoutX="250.0" layoutY="10.0" prefHeight="120.0" prefWidth="210.0" AnchorPane.leftAnchor="227.0">
                <styleClass>
                   <String fx:value="dashboard-card" />
-                  <String fx:value="ashgray-gradient" />
+                  <String fx:value="mintgreen-gradient" />
                </styleClass>
                <children>
                   <Label layoutX="14.0" layoutY="14.0" text="Total Income" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="20.0">
@@ -43,7 +43,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="14.0" layoutY="46.0" text="250 000 XAF" textFill="WHITE">
+                  <Label fx:id="totalIncome_label" layoutX="14.0" layoutY="46.0" text="250 000 XAF" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>
@@ -56,7 +56,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="10.0" layoutY="23.0" prefHeight="27.0" prefWidth="180.0" text="250 000 XAF" textFill="WHITE">
+                  <Label fx:id="remainingBudget_label" layoutX="10.0" layoutY="23.0" prefHeight="27.0" prefWidth="180.0" text="250 000 XAF" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -64,16 +64,16 @@
                </children>
                <styleClass>
                   <String fx:value="dashboard-card" />
-                  <String fx:value="coralpink-gradient" />
+                  <String fx:value="slateblue-gradient" />
                </styleClass></AnchorPane>
             <AnchorPane fx:id="budgetOverviewCard" layoutX="427.0" layoutY="74.0" prefHeight="55.0" prefWidth="200.0" AnchorPane.rightAnchor="5.0">
                <children>
-                  <Label layoutX="16.0" layoutY="7.0" text="savings" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
+                  <Label layoutX="16.0" layoutY="7.0" text="income not budgeted" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="11.0" layoutY="19.0" prefHeight="27.0" prefWidth="180.0" text="250 000 XAF" textFill="WHITE">
+                  <Label fx:id="unbudgetedIncome_label" layoutX="11.0" layoutY="19.0" prefHeight="27.0" prefWidth="180.0" text="250 000 XAF" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -81,7 +81,7 @@
                </children>
                <styleClass>
                   <String fx:value="dashboard-card" />
-                  <String fx:value="mintgreen-gradient" />
+                  <String fx:value="ashgray-gradient" />
                </styleClass></AnchorPane>
             <AnchorPane layoutX="11.2" layoutY="139.0" prefHeight="318.0" prefWidth="634.0" styleClass="dashboard-card" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="5.0">
                <children>

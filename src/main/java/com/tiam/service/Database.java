@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 
+import com.tiam.model.ExpenseCategoryData;
+import com.tiam.model.ExpenseRecordData;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Database {
 
@@ -28,16 +33,19 @@ public class Database {
 
     public static void clcoseEverything(Connection con, PreparedStatement statement, ResultSet resultSet) {
         try {
-            if (con != null) con.close();
-            if (statement != null) statement.close();
-            if (resultSet != null) resultSet.close();
+            if (con != null)
+                con.close();
+            if (statement != null)
+                statement.close();
+            if (resultSet != null)
+                resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("error closing");
         }
     }
 
-    // ------------------------------------------------- available income 
+    // ------------------------------------------------- available income
 
     public static Double getAvailableIncome() {
         String query = """
@@ -47,7 +55,7 @@ public class Database {
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        try {   
+        try {
             statement = con.prepareStatement(query);
             resultSet = statement.executeQuery();
 
@@ -65,7 +73,7 @@ public class Database {
 
     public static void decreaseAvailableIncomeBy(Double value) {
         String query = """
-                UPDATE Account SET available_income = available_income - %f 
+                UPDATE Account SET available_income = available_income - %f
                 WHERE id = %d
                 """.formatted(value, Accounts.id);
         Connection con = Database.getConnection();
@@ -83,7 +91,7 @@ public class Database {
 
     public static void increaseAvailableIncomeBy(Double value) {
         String query = """
-                UPDATE Account SET available_income = available_income + %f 
+                UPDATE Account SET available_income = available_income + %f
                 WHERE id = %d
                 """.formatted(value, Accounts.id);
         Connection con = Database.getConnection();
@@ -146,7 +154,7 @@ public class Database {
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        try {   
+        try {
             statement = con.prepareStatement(query);
             resultSet = statement.executeQuery();
 
@@ -184,9 +192,37 @@ public class Database {
         return 0.0;
     }
 
+    public static Double getTotalIncomeForMonth() {
+        String query = """
+                SELECT SUM(amount) as total_income
+                FROM IncomeRecord
+                INNER JOIN IncomeStream ON IncomeStream.id = IncomeRecord.stream_id
+                INNER JOIN Account ON IncomeStream.account_id = Account.id
+                WHERE Account.id = %d
+                """.formatted(Accounts.id);
+        Connection con = Database.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getDouble("total_income");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            clcoseEverything(con, statement, resultSet);
+        }
+
+        return 0.0;
+    }
+
     public static Double getTotalBudgetForMonth() {
         String query = """
-                SELECT SUM(amount) as total_budget 
+                SELECT SUM(amount) as total_budget
                 FROM Budget
                 INNER JOIN ExpenseCategory ON ExpenseCategory.id = Budget.category_id
                 INNER JOIN Account ON ExpenseCategory.account_id = Account.id
@@ -211,11 +247,10 @@ public class Database {
 
         return 0.0;
     }
-    
 
     public static void increaseRemainingBudgetBy(Double value) {
         String query = """
-                UPDATE Account SET remaining_budget = remaining_budget + %f 
+                UPDATE Account SET remaining_budget = remaining_budget + %f
                 WHERE id = %d
                 """.formatted(value, Accounts.id);
         Connection con = Database.getConnection();
@@ -233,7 +268,7 @@ public class Database {
 
     public static void decreaseRemainingBudgetBy(Double value) {
         String query = """
-                UPDATE Account SET remaining_budget = remaining_budget - %f 
+                UPDATE Account SET remaining_budget = remaining_budget - %f
                 WHERE id = %d
                 """.formatted(value, Accounts.id);
         Connection con = Database.getConnection();
@@ -248,13 +283,12 @@ public class Database {
             clcoseEverything(con, statement, resultSet);
         }
     }
-    
 
-    // ---------------------------------------------------------------- networth 
+    // ---------------------------------------------------------------- networth
 
     public static void increaseNetworthBy(Double value) {
         String query = """
-                UPDATE Account SET networth = networth + %f 
+                UPDATE Account SET networth = networth + %f
                 WHERE id = %d
                 """.formatted(value, Accounts.id);
         Connection con = Database.getConnection();
@@ -271,10 +305,10 @@ public class Database {
     }
 
     public static void decreaseNetworthBy(Double value) {
-        String query =  """
-            UPDATE Account SET networth = networth - %f 
-            WHERE id = %d
-            """.formatted(value, Accounts.id);
+        String query = """
+                UPDATE Account SET networth = networth - %f
+                WHERE id = %d
+                """.formatted(value, Accounts.id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -296,7 +330,7 @@ public class Database {
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        try {   
+        try {
             statement = con.prepareStatement(query);
             resultSet = statement.executeQuery();
 
@@ -312,11 +346,11 @@ public class Database {
         return 0.0;
     }
 
-
     // ----------------------------------------------------- other
 
     public static Double getTotalExpenseForCategory(int category_id) {
-        String query = "SELECT SUM(amount) AS total_expenses FROM ExpenseRecord WHERE category_id=%d".formatted(category_id);
+        String query = "SELECT SUM(amount) AS total_expenses FROM ExpenseRecord WHERE category_id=%d"
+                .formatted(category_id);
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -328,7 +362,7 @@ public class Database {
             if (resultSet.next()) {
                 return resultSet.getDouble("total_expenses");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             clcoseEverything(con, statement, resultSet);
@@ -350,7 +384,7 @@ public class Database {
             if (resultSet.next()) {
                 return resultSet.getDouble("total_income");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             clcoseEverything(con, statement, resultSet);
@@ -378,7 +412,7 @@ public class Database {
             if (resultSet.next()) {
                 return resultSet.getDouble("total_expenses");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             clcoseEverything(con, statement, resultSet);
@@ -434,9 +468,9 @@ public class Database {
         return map;
     }
 
-    public static HashMap<Integer, Double> getExpensesForCategory(int category_id) {
-        String query = "SELECT id, amount FROM ExpenseRecord WHERE category_id=%d".formatted(category_id);
-        HashMap<Integer, Double> map = new HashMap<>();
+    public static ObservableList<ExpenseRecordData> getTotalDailyExpensesForCategory(int category_id) {
+        String query = "SELECT *, SUM(amount) AS total_amount FROM ExpenseRecord WHERE category_id=%d GROUP BY date_spent".formatted(category_id);
+        ObservableList<ExpenseRecordData> list = FXCollections.observableArrayList();
         Connection con = Database.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -445,7 +479,12 @@ public class Database {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                map.put(resultSet.getInt("id"), resultSet.getDouble("amount"));
+                ExpenseRecordData data = new ExpenseRecordData();
+                data.setId(resultSet.getInt("id"));
+                data.setDate(resultSet.getString("date_spent"));
+                data.setAmount(resultSet.getDouble("total_amount"));
+                data.setReason(resultSet.getString("reason"));
+                list.add(data);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -453,7 +492,34 @@ public class Database {
             clcoseEverything(con, statement, resultSet);
         }
 
-        return map;
+        return list;
+    }
+
+    public static ObservableList<ExpenseRecordData> getExpensesForCategory(int category_id) {
+        String query = "SELECT * FROM ExpenseRecord WHERE category_id=%d".formatted(category_id);
+        ObservableList<ExpenseRecordData> list = FXCollections.observableArrayList();
+        Connection con = Database.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                ExpenseRecordData data = new ExpenseRecordData();
+                data.setId(resultSet.getInt("id"));
+                data.setDate(resultSet.getString("date_spent"));
+                data.setAmount(resultSet.getDouble("amount"));
+                data.setReason(resultSet.getString("reason"));
+                list.add(data);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            clcoseEverything(con, statement, resultSet);
+        }
+
+        return list;
     }
 
     public static Double getIncomeAmount(int id) {
@@ -468,7 +534,7 @@ public class Database {
             if (resultSet.next()) {
                 return resultSet.getDouble("amunt");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             clcoseEverything(con, statement, resultSet);
@@ -478,7 +544,8 @@ public class Database {
     }
 
     public static int getCurrentAccountId() {
-        String query = "SELECT id FROM Account WHERE month=\"%s\" AND year=\"%s\"".formatted(DateManager.getCurrentMonth(), DateManager.getCurrentYear());
+        String query = "SELECT id FROM Account WHERE month=\"%s\" AND year=\"%s\""
+                .formatted(DateManager.getCurrentMonth(), DateManager.getCurrentYear());
         String insertQuery = """
                 INSERT INTO Account (available_income, remaining_budget, networth, month, year)
                 VALUES ("0.0", "0.0", "0.0", "%s", "%s")
@@ -505,4 +572,91 @@ public class Database {
 
         return getCurrentAccountId();
     }
+
+    public static HashMap<String, Double> getTotalExpensesForCurrentYear() {
+        HashMap<String, Double> map = new HashMap<>();
+        String query = """
+                SELECT Account.month, SUM(amount) AS total_expenses FROM ExpenseRecord
+                INNER JOIN ExpenseCategory ON ExpenseCategory.id = ExpenseRecord.category_id
+                INNER JOIN Account ON Account.id = ExpenseCategory.account_id
+                WHERE Account.year = "%s"
+                GROUP BY Account.month
+                """.formatted(DateManager.getCurrentYear());
+
+        Connection con = Database.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                map.put(resultSet.getString("month"), resultSet.getDouble("total_expenses"));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static HashMap<String, Double> getTotalIncomeForCurrentYear() {
+        HashMap<String, Double> map = new HashMap<>();
+        String query = """
+                SELECT Account.month, SUM(amount) AS total_income FROM IncomeRecord
+                INNER JOIN IncomeStream ON IncomeStream.id = IncomeRecord.stream_id
+                INNER JOIN Account ON Account.id = IncomeStream.account_id
+                WHERE Account.year = "%s"
+                GROUP BY Account.month
+                """.formatted(DateManager.getCurrentYear());
+
+        Connection con = Database.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                map.put(resultSet.getString("month"), resultSet.getDouble("total_income"));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static ObservableList<ExpenseCategoryData> fetchExpenseCategories() {
+        ObservableList<ExpenseCategoryData> list = FXCollections.observableArrayList();
+        String query = """
+                SELECT ExpenseCategory.name, ExpenseCategory.id, ExpenseCategory.color_name 
+                FROM ExpenseCategory
+                INNER JOIN Account ON Account.id = ExpenseCategory.account_id 
+                WHERE Account.id = %d
+                """.formatted(Accounts.id);
+                Connection con = Database.getConnection();
+                PreparedStatement statement = null;
+                ResultSet resultSet = null;
+    
+        try {
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+    
+            while (resultSet.next()) {
+                ExpenseCategoryData data = new ExpenseCategoryData();
+                data.setName(resultSet.getString("name"));
+                data.setColor(Color.getColorFromName(resultSet.getString("color_name")));
+                data.setId(resultSet.getInt("id"));
+                list.add(data);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Database.clcoseEverything(con, statement, resultSet);
+        }
+    
+        return list;
+    }
 }
+

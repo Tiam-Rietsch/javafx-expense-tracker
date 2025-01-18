@@ -8,9 +8,11 @@ import java.util.HashMap;
 import java.util.Optional;
 
 import com.tiam.model.ExpenseCategoryData;
+import com.tiam.model.ExpenseRecordData;
 import com.tiam.service.Accounts;
 import com.tiam.service.Database;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -85,7 +87,7 @@ public class ExpenseCardController extends AnchorPane {
         dialog.getButtonTypes().setAll(ButtonType.YES, ButtonType.CANCEL);
         Optional<ButtonType> result = dialog.showAndWait();
 
-        HashMap<Integer, Double> expense_map = Database.getExpensesForCategory(expenseCategory.getId());
+        ObservableList<ExpenseRecordData> expense_list = Database.getExpensesForCategory(expenseCategory.getId());
         Double category_budget = Database.getBudgetForCategory(expenseCategory.getId());
 
         if (result.isPresent() && result.get() == ButtonType.YES) {
@@ -96,8 +98,8 @@ public class ExpenseCardController extends AnchorPane {
                 statement = con.prepareStatement(query);
                 statement.execute();
 
-                for (Integer id : expense_map.keySet()) {
-                    Accounts.resetAccountOnExpenseDelete(expense_map.get(id));
+                for (ExpenseRecordData data : expense_list) {
+                    Accounts.resetAccountOnExpenseDelete(data.getAmount());
                 }
                 Accounts.resetAccountOnExpenseCategoryDelete(category_budget);
 

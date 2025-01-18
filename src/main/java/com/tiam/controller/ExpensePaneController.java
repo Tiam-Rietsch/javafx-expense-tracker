@@ -249,35 +249,7 @@ public class ExpensePaneController extends StackPane implements Initializable{
 
     /** ----------------------------------------------------------------------------------- Utilities */
 
-    public ObservableList<ExpenseCategoryData> fetchExpenseCategories() {
-        ObservableList<ExpenseCategoryData> list = FXCollections.observableArrayList();
-        String query = """
-                SELECT ExpenseCategory.name, ExpenseCategory.id, ExpenseCategory.color_name 
-                FROM ExpenseCategory
-                INNER JOIN Account ON Account.id = ExpenseCategory.account_id 
-                WHERE Account.id = %d
-                """.formatted(Accounts.id);
-        con = Database.getConnection();
 
-        try {
-            statement = con.prepareStatement(query);
-            resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                ExpenseCategoryData data = new ExpenseCategoryData();
-                data.setName(resultSet.getString("name"));
-                data.setColor(Color.getColorFromName(resultSet.getString("color_name")));
-                data.setId(resultSet.getInt("id"));
-                list.add(data);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            Database.clcoseEverything(con, statement, resultSet);
-        }
-
-        return list;
-    }
     
     public ObservableList<ExpenseRecordData> fetchExpenseRecords() {
         ObservableList<ExpenseRecordData> list = FXCollections.observableArrayList();
@@ -334,7 +306,7 @@ public class ExpensePaneController extends StackPane implements Initializable{
 
 
     public void fillExpenseCategoryList() {
-        ObservableList<ExpenseCategoryData> expenseCategoryList = fetchExpenseCategories();
+        ObservableList<ExpenseCategoryData> expenseCategoryList = Database.fetchExpenseCategories();
         expense_category_container.getChildren().clear();
         expense_table.getItems().clear();
 

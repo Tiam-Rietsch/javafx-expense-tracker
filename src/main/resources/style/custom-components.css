@@ -190,11 +190,6 @@
 .deepsea-gradient:hover { -fx-background-color: linear-gradient(to bottom right, derive(#104a7a, 20%), #104a7a); }
 
 
-
-
-
-
-
 /* Mocha Text Gradient */
 .mocha-text-gradient {
     -fx-text-fill: linear-gradient(to bottom right, #2E2A24, derive(#2E2A24, -20%));
@@ -262,57 +257,11 @@
 
 
 
-
-
-/* Custom colors for line chart series starting with DeepSea */
-.default-color0.chart-series-line { -fx-stroke: #104a7a; } /* DeepSea */
-.default-color1.chart-series-line { -fx-stroke: #b3ae9e; } /* Almond */
-.default-color2.chart-series-line { -fx-stroke: #9b27b0; } /* Amethyst */
-.default-color3.chart-series-line { -fx-stroke: #6d7aa9; } /* SlateBlue */
-.default-color4.chart-series-line { -fx-stroke: #3fcda2; } /* MintGreen */
-.default-color5.chart-series-line { -fx-stroke: #868686; } /* AshGray */
-.default-color6.chart-series-line { -fx-stroke: #cd3f6a; } /* RubyRed */
-.default-color7.chart-series-line { -fx-stroke: #d76b66; } /* CoralPink */
-
-/* Symbol colors for data points */
-.default-color0.chart-line-symbol { -fx-background-color: #104a7a; }
-.default-color1.chart-line-symbol { -fx-background-color: #b3ae9e; }
-.default-color2.chart-line-symbol { -fx-background-color: #9b27b0; }
-.default-color3.chart-line-symbol { -fx-background-color: #6d7aa9; }
-.default-color4.chart-line-symbol { -fx-background-color: #3fcda2; }
-.default-color5.chart-line-symbol { -fx-background-color: #868686; }
-.default-color6.chart-line-symbol { -fx-background-color: #cd3f6a; }
-.default-color7.chart-line-symbol { -fx-background-color: #d76b66; }
-
-
-
-/* Custom colors for pie chart pieces starting with DeepSea */
-.default-color0.chart-pie { -fx-background-color: #104a7a; } /* DeepSea */
-.default-color1.chart-pie { -fx-background-color: #b3ae9e; } /* Almond */
-.default-color2.chart-pie { -fx-background-color: #9b27b0; } /* Amethyst */
-.default-color3.chart-pie { -fx-background-color: #6d7aa9; } /* SlateBlue */
-.default-color4.chart-pie { -fx-background-color: #3fcda2; } /* MintGreen */
-.default-color5.chart-pie { -fx-background-color: #868686; } /* AshGray */
-.default-color6.chart-pie { -fx-background-color: #cd3f6a; } /* RubyRed */
-.default-color7.chart-pie { -fx-background-color: #d76b66; } /* CoralPink */
-
-
-/* Custom colors for stacked bar chart series starting with DeepSea */
-.default-color0.chart-bar { -fx-bar-fill: #104a7a; } /* DeepSea */
-.default-color1.chart-bar { -fx-bar-fill: #b3ae9e; } /* Almond */
-.default-color2.chart-bar { -fx-bar-fill: #9b27b0; } /* Amethyst */
-.default-color3.chart-bar { -fx-bar-fill: #6d7aa9; } /* SlateBlue */
-.default-color4.chart-bar { -fx-bar-fill: #3fcda2; } /* MintGreen */
-.default-color5.chart-bar { -fx-bar-fill: #868686; } /* AshGray */
-.default-color6.chart-bar { -fx-bar-fill: #cd3f6a; } /* RubyRed */
-.default-color7.chart-bar { -fx-bar-fill: #d76b66; } /* CoralPink */
-
-/* Legend colors */
-.default-color0.chart-legend-item-symbol { -fx-background-color: #104a7a; }
+/* .default-color0.chart-legend-item-symbol { -fx-background-color: #104a7a; }
 .default-color1.chart-legend-item-symbol { -fx-background-color: #b3ae9e; }
 .default-color2.chart-legend-item-symbol { -fx-background-color: #9b27b0; }
 .default-color3.chart-legend-item-symbol { -fx-background-color: #6d7aa9; }
 .default-color4.chart-legend-item-symbol { -fx-background-color: #3fcda2; }
 .default-color5.chart-legend-item-symbol { -fx-background-color: #868686; }
 .default-color6.chart-legend-item-symbol { -fx-background-color: #cd3f6a; }
-.default-color7.chart-legend-item-symbol { -fx-background-color: #d76b66; }
+.default-color7.chart-legend-item-symbol { -fx-background-color: #d76b66; } */

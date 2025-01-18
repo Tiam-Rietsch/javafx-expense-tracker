@@ -5,17 +5,20 @@ public class Color {
     private String hex;
 
     public static final Color[] colors = {
-        new Color("Mocha", "#2E2A24"),
-        new Color("Almond", "#b3ae9e"), 
-        new Color("Amethyst", "#9b27b0"), 
-        new Color("SlateBlue", "#6d7aa9"), 
-        new Color("MintGreen", "#3fcda2"), 
-        new Color("AshGray", "#868686"), 
-        new Color("RubyRed", "#cd3f6a"), 
-        new Color("CoralPink", "#d76b66"), 
-        new Color("DeepSea", "#104a7a")
+        new Color("Coral", "#F97316"),       // Soft orange
+        new Color("Plum", "#8B5CF6"),        // Gentle purple
+        new Color("Azure", "#0284C7"),       // Light blue
+        new Color("Graphite", "#4B5563"),    // Neutral gray
+        new Color("Sky", "#0EA5E9"),         // Bright light blue
+        new Color("Mint", "#10B981"),        // Softer, fresh green
+        new Color("Amber", "#F59E0B"),       // Rich golden yellow
+        new Color("Rose", "#F43F5E"),        // Vibrant pinkish-red
+        new Color("Teal", "#14B8A6"),        // Fresh blue-green
+        new Color("Flamingo", "#F87171"),    // Warm pastel coral-pink
+        new Color("Charcoal", "#1F2937"),    // Dark gray with blue undertones
+        new Color("Lilac", "#C084FC")        // Soft lilac
     };
-
+    
 
     public Color(String name, String hex) {
         this.name = name;
