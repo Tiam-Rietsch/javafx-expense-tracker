@@ -1,5 +1,6 @@
 package com.tiam.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -7,11 +8,18 @@ import com.tiam.service.Database;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class MainController implements Initializable {
 
@@ -36,6 +44,8 @@ public class MainController implements Initializable {
     @FXML
     private Label totalExpenses_label;
 
+    private boolean dashboardOpened = false;
+
     private void applyPane(StackPane pane) {
         AnchorPane.setTopAnchor(pane, 0.0);
         AnchorPane.setLeftAnchor(pane, 0.0);
@@ -50,23 +60,50 @@ public class MainController implements Initializable {
         expense_btn.getStyleClass().remove("selected");
         income_btn.getStyleClass().remove("selected");
         report_btn.getStyleClass().remove("selected");
-        StackPane pane = null; 
+        StackPane pane = null;
 
         if (event.getTarget().equals(expense_btn)) {
             expense_btn.getStyleClass().add("selected");
             pane = new ExpensePaneController();
-            ((ExpensePaneController)pane).setNetworthUpdateRunnable(this::updateNetworthLabel);
+            ((ExpensePaneController) pane).setNetworthUpdateRunnable(this::updateNetworthLabel);
 
         } else if (event.getTarget().equals(income_btn)) {
             income_btn.getStyleClass().add("selected");
             pane = new IncomePaneController();
-            ((IncomePaneController)pane).setNetworthUpdateRunnable(this::updateNetworthLabel);
-        } else if (event.getTarget().equals(report_btn)) {
-            report_btn.getStyleClass().add("selected");
-            pane = new ReportPaneController();
+            ((IncomePaneController) pane).setNetworthUpdateRunnable(this::updateNetworthLabel);
         }
 
         applyPane(pane);
+
+    }
+
+    public void openDashboard(ActionEvent event) {
+        if (!dashboardOpened) {
+            try {
+                Stage dashboardWindow = new Stage();
+    
+                Parent root = FXMLLoader.load(getClass().getResource("/view/dashboard.fxml"));
+                Scene dashboardScene = new Scene(root);
+    
+                dashboardWindow.setScene(dashboardScene);
+                dashboardWindow.initStyle(StageStyle.UTILITY);
+                dashboardWindow.resizableProperty().set(false);
+                dashboardWindow.setAlwaysOnTop(true);
+
+                dashboardOpened = true;
+                totalBudget_label.getScene().getRoot().setDisable(true);
+                dashboardWindow.showAndWait();
+                totalBudget_label.getScene().getRoot().setDisable(false);
+                dashboardOpened = false;
+    
+            } catch (IOException e) {
+                e.printStackTrace();
+            }    
+        } else {
+            Alert dialog = new Alert(AlertType.INFORMATION);
+            dialog.setContentText("dashboard is currently opened!");
+            dialog.showAndWait();
+        }
 
     }
 
@@ -76,7 +113,6 @@ public class MainController implements Initializable {
         totalExpenses_label.setText(Database.getTotalExpensesForMonth().toString() + " XAF");
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         IncomePaneController pane = new IncomePaneController();
@@ -85,6 +121,5 @@ public class MainController implements Initializable {
 
         updateNetworthLabel();
     }
-
 
 }

@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 import com.tiam.model.ExpenseCategoryData;
 import com.tiam.model.ExpenseRecordData;
 import com.tiam.service.Accounts;
-import com.tiam.service.Color;
 import com.tiam.service.Database;
 
 import javafx.collections.FXCollections;
